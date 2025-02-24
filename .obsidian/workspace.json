@@ -1,0 +1,171 @@
+{
+  "main": {
+    "id": "01ee1b5b5b898777",
+    "type": "split",
+    "children": [
+      {
+        "id": "45e1f05b422acd19",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ae105855d5153317",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01.HTML及元素.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "01.HTML及元素"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ba7010a7d4390478",
+    "type": "split",
+    "children": [
+      {
+        "id": "5e753ce222af1c0a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "009e431336831952",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "14c63705a1b4cff2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "bfa95f936510e9ce",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "06508a1b59107503",
+    "type": "split",
+    "children": [
+      {
+        "id": "7b0f157d6a31aceb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b4aed0c73b3dd69c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "01.HTML及元素.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "01.HTML及元素 的反向链接列表"
+            }
+          },
+          {
+            "id": "b8335ec51367e5f4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "01.HTML及元素.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "01.HTML及元素 的出链列表"
+            }
+          },
+          {
+            "id": "c04a23e8a7841b6b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "7a193424c153b2e8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "01.HTML及元素.md"
+              },
+              "icon": "lucide-list",
+              "title": "01.HTML及元素 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "ae105855d5153317",
+  "lastOpenFiles": [
+    "00.项目实践总结.md",
+    "02.表单form.md",
+    "01.HTML及元素.md"
+  ]
+}
