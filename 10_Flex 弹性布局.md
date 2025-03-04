@@ -78,6 +78,8 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
   - 主轴：`main-start` 到 `main-end`。
   - 交叉轴：`cross-start` 到 `cross-end`。
 
+![flex_terms](./assets/flex_terms.png)
+
 ![image-20250227145635206](./assets/image-20250227145635206.png)
 
 ## flex相关的属性
