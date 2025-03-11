@@ -2,12 +2,12 @@
 
 ## 什么是 Flexbox？
 
-**Flexbox**，全称 **Flexible Box Layout**（弹性盒子布局），是 CSS3 推出的一种一维布局模型，旨在提供灵活、高效的元素排列方式，弥补传统布局的不足。
+**Flexbox**（弹性盒子布局）是一种强大的 CSS3 一维布局模型，专为解决现代 Web 应用的布局需求而设计。
 
 - **核心特性**：
-  - **动态调整**：元素可根据可用空间自动**膨胀**（填充多余空间）或**收缩**（适应有限空间）。
+  - **动态调整**：子元素可根据容器可用空间自动**膨胀**（填充多余空间）或**收缩**（适应有限空间），实现自适应效果。
   - **一维布局**：专注于行或列的单向排列，与二维的 Grid 布局互补。
-  - **术语**：在 Web 开发中，常简称为 **Flex 布局**。
+  - **术语**：在 Web 开发中，常简称为 **Flex 布局** 或 **弹性布局**。
 - **普及性**：
   - **移动端**：已成为事实标准，几乎所有现代移动页面依赖 Flexbox。
   - **PC 端**：占据主流，仅少数老旧网站仍依赖传统浮动（`float`）或定位（`positioning`）。
@@ -42,12 +42,24 @@
 ### 核心概念
 
 - **两个角色**：
-  - **Flex Container（弹性容器）**：通过 `display: flex` 或 `inline-flex` 定义的父元素。
-  - **Flex Item（弹性子项）**：容器内的直接子元素，受容器属性控制。
+  - **Flex Container（弹性容器）**：通过 `display: flex` 或 `inline-flex` 定义的父元素，负责管理子元素的布局。
+  - **Flex Item（弹性子项）**：容器内的直接子元素，自动成为 Flex 项目，受容器属性控制。
 - **Flex Item 特性**：
   - **受控性**：排列和尺寸由容器属性（如 `justify-content`、`align-items`）统一管理。
   - **灵活性**：超越传统块级（`block`）与行内（`inline`）限制，行为更自由。
   - **自适应**：默认随内容调整大小，可通过 `flex` 属性精确控制。
+- **轴线系统**：
+  - **主轴（Main Axis）**：由 `flex-direction` 定义的排列方向，默认为水平（从左到右）。
+  - **交叉轴（Cross Axis）**：垂直于主轴的方向，默认为垂直。
+  - **起止点**：
+    - 主轴：`main-start` → `main-end`。
+    - 交叉轴：`cross-start` → `cross-end`。
+  - **尺寸术语**：
+    - `main size`：子项在主轴上的占用空间（如宽度或高度）。
+    - `cross size`：子项在交叉轴上的占用空间。
+- **特性**：
+  - 子项的 `float`、`clear` 和 `vertical-align` 属性在 Flex 布局中失效。
+  - 提供更高的自由度，超越传统块级（`block`）与行内（`inline`）限制。
 
 ### 如何创建 Flex Container？
 
@@ -75,11 +87,11 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 ### 应用于 Flex Container 的属性
 
 - **`flex-direction`**：定义主轴方向。
-- **`flex-wrap`**：控制单行或多行。
+- **`flex-wrap`**：控制子项是否换行。
 - **`flex-flow`**：`flex-direction` 和 `flex-wrap` 的简写。
-- **`justify-content`**：主轴上的对齐方式。
-- **`align-items`**：交叉轴上的单行对齐。
-- **`align-content`**：交叉轴上的多行对齐。
+- **`justify-content`**：调整主轴上的对齐和间距。
+- **`align-items`**：调整交叉轴上单行子项的对齐。
+- **`align-content`**：调整交叉轴上多行子项的对齐（需配合 `flex-wrap`）。
 
 ### 应用于 Flex Item 的属性
 
@@ -88,7 +100,7 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 - **`flex-basis`**：主轴方向上的基准尺寸。
 - **`flex`**：上述三者的简写。
 - **`order`**：调整排列顺序。
-- **`align-self`**：覆盖单个元素的交叉轴对齐。
+- **`align-self`**：覆盖单个子项的交叉轴对齐。
 
 ## 核心属性详解
 
@@ -117,19 +129,20 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 ### **`flex-flow`**
 
 - **作用**：`flex-direction` 和 `flex-wrap` 的简写。
-- **语法**：`flex-flow: <direction> <wrap>`（顺序随意，可省略任一值）。
-- **示例**：`flex-flow: row wrap;`
+- **语法**：`flex-flow: <direction> <wrap>;`（顺序随意，可省略任一值）。
+- **默认值**：`row nowrap`。
+- **示例**：`flex-flow: row wrap;`。
 
-##  justify-content
+##  **`justify-content`**
 
 - **作用**：控制主轴上 Flex Item 的对齐与间距分配。
 - **取值**：
-  - `flex-start`：靠主轴起点对齐。
-  - `flex-end`：靠主轴终点对齐。
+  - `flex-start`（默认）：靠主轴起点对齐（如左对齐）。
+  - `flex-end`：靠主轴终点对齐（如右对齐）。
   - `center`：居中对齐。
   - `space-between`：首尾贴边，中间均分。
-  - `space-around`：每项周围间距相等。
-  - `space-evenly`：所有间距完全均等。
+  - `space-around`：每项两侧间距相等（首尾间距为中间一半）。
+  - `space-evenly`：所有间距完全相等（含首尾）。
 
 ![image-20250227151644732](./assets/image-20250227151644732.png)
 
@@ -137,11 +150,11 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 
 - **作用**：控制交叉轴上单行 Flex Item 的对齐方式。
 - **取值**：
-  - `stretch`（默认）：拉伸填满交叉轴。
+  - `stretch`（默认）：拉伸填满交叉轴（需无固定高度）。
   - `flex-start`：靠交叉轴起点对齐。
   - `flex-end`：靠交叉轴终点对齐。
   - `center`：居中对齐。
-  - `baseline`：按文本基线对齐。
+  - `baseline`：按首行文字基线对齐。
 - **示例**：`align-items: center;` 实现单行子项垂直居中。
 
 ![image-20250227151702237](./assets/image-20250227151702237.png)
@@ -157,6 +170,7 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
   - `space-between`：首尾贴边，中间均分。
   - `space-around`：每行周围间距相等。
 - **示例**：`align-content: space-around;` 多行网格均匀分布。
+- **注意**：若只有一行，该属性无效。
 
 ![image-20250227151716874](./assets/image-20250227151716874.png)
 
@@ -164,7 +178,7 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 
 ### **`order`**
 
-- **作用**：调整 Flex Item 的排列顺序，默认值为 `0`。
+- **作用**：调整 Flex Item 的排列顺序，默认值为 `0`，值越小越靠前。
 - **示例**：`order: 1;` 将元素移至后面。
 
 ![image-20250227151734570](./assets/image-20250227151734570.png)
@@ -175,7 +189,7 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 
 ### **`flex-grow`**
 
-- **作用**：定义剩余空间分配比例，默认值为 `0`。
+- **作用**：定义剩余空间分配比例，默认值为 `0`（不分配）。
 - **示例**：若容器有 300px 多余空间，`flex-grow: 2` 的元素分得 200px，`flex-grow: 1` 的分得 100px。
 
 ![image-20250227151928440](./assets/image-20250227151928440.png)
@@ -198,17 +212,16 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 
 ## flex-item 属性 - `flex-basis`
 
-- **`flex-basis` 指定 flex 元素在主轴方向上的基准尺寸**  
-  - 可取值包括：  
-    - `auto`（默认值，随内容或 `width`/`height` 确定）；  
-    - 具体宽度值（如 `100px`、`20%`）。  
-
-- **最终基准尺寸的优先级**（从高到低）：  
+- **作用**：指定子项在主轴上的基准尺寸，作为伸缩计算起点。
+  
+- **取值**：
+  - `auto`（默认）：根据内容或 `width`/`height` 确定。
+  - 具体值（如 `100px`、`20%`）：显式设置。
+- **优先级**（从高到低）：
   1. `max-width` / `max-height` 或 `min-width` / `min-height`（约束边界）；  
   2. `flex-basis`（显式设置的基准值）；  
   3. `width` / `height`（传统尺寸属性）；  
   4. 内容本身的固有尺寸（无显式设置时）。  
-
 - **作用**  
   - 在分配剩余空间或计算收缩前，`flex-basis` 作为元素的初始大小参考。
 
@@ -242,3 +255,17 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
   - `flex: 1` → `flex: 1 1 0`  
   - `flex: 2 50px` → `flex: 2 1 50px`  
   - `flex: 0 0 100px` → 固定尺寸，不伸缩。
+
+### **`align-self`**
+
+- **作用**：覆盖单个子项在交叉轴上的对齐方式，优先级高于 `align-items`。
+
+- **取值**：与 `align-items` 一致，另加 `auto`（默认，继承容器 `align-items`）。
+
+- **示例**：
+
+  ```css
+  .item {
+    align-self: flex-end; /* 靠交叉轴底端对齐 */
+  }
+  ```
