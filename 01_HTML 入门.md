@@ -347,7 +347,7 @@ table tr:nth-child(n) {
 ## 不常用元素
 
 - `<strong>`：加粗强调（可用`font-weight: 700`替代）
-- `<i>`：斜体（可用font-style: italic替代，常用于图标）
+- `<i>`：斜体（可用`font-style: italic`替代，常用于图标）
 - `<code>`：代码展示（等宽字体）
 - `<br>`：强制换行
 

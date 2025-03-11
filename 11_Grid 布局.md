@@ -1,11 +1,5 @@
 # CSS Grid 网格布局教程
 
-*本文转自阮一峰老师的grid布局教程文章*。
-
-作者：[阮一峰](http://www.ruanyifeng.com/home.html)
-
-日期：[2019年3月25日](https://www.ruanyifeng.com/blog/2015/07/)
-
 ## 一.概述
 
 网格布局（Grid）是最强大的 CSS 布局方案。
@@ -724,5 +718,3 @@ place-self: center center;
 - [Learn CSS Grid](https://learncssgrid.com/), Jonathan Suh
 
 - [How I stopped using Bootstrap's layout thanks to CSS Grid](https://blog.theodo.com/2018/03/stop-using-bootstrap-layout-thanks-to-css-grid/), Cédric Kui
-
-(完)
