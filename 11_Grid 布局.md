@@ -2,71 +2,78 @@
 
 ## 一.概述
 
-网格布局（Grid）是最强大的 CSS 布局方案。
-
-它将网页划分成一个个网格，可以任意组合不同的网格，做出各种各样的布局。以前，只能通过复杂的 CSS 框架达到的效果，现在浏览器内置了。
+CSS Grid（网格布局）是现代 CSS 中最强大的布局工具之一。它通过将页面划分为网格单元，允许开发者灵活组合网格，实现复杂而多样化的布局设计。过去依赖繁琐的 CSS 框架或浮动布局才能实现的效果，如今通过浏览器原生支持的 Grid 轻松完成。
 
 ![CSS Grid布局](./assets/1_bg2019032501.png)
 
-上图这样的布局，就是 Grid 布局的拿手好戏。
+如上图所示，这种多区域、结构化的布局正是 Grid 布局的强项。
 
-Grid 布局与 Flex 布局有一定的相似性，都可以指定容器内部多个项目的位置。但是，它们也存在重大区别。
+### Grid 与 Flex 的对比
 
-Flex 布局是轴线布局，只能指定"项目"针对轴线的位置，可以看作是一维布局。Grid 布局则是将容器划分成"行"和"列"，产生单元格，然后指定"项目所在"的单元格，可以看作是二维布局。Grid 布局远比 Flex 布局强大。
+Grid 布局与 Flex 布局有相似之处，二者均可控制容器内项目的定位。然而，二者的核心区别在于：
+
+- **Flex 布局**：基于轴线（主轴与交叉轴）的一维布局，适合线性排列。
+- **Grid 布局**：基于行与列的二维布局，可精确定义项目的行列位置，功能更为强
 
 ## 二.基本概念
-
-学习 Grid 布局之前，需要了解一些基本概念。
 
 ### 容器和项目
 
 采用网格布局的区域，称为"容器"（container）。容器内部采用网格定位的子元素，称为"项目"（item）。
 
 ```css
-<div>
-    <div><p>1</p></div>
-    <div><p>2</p></div>
-    <div><p>3</p></div>
+<div class="container">
+    <div class="item"><p>1</p></div>
+    <div class="item"><p>2</p></div>
+    <div class="item"><p>3</p></div>
 </div>
 ```
 
-上面代码中，最外层的`<div>`元素就是容器，内层的三个`<div>`元素就是项目。
+```css
+.container {
+    display: grid;
+}
+```
+
+在上例中，外层 `<div>` 为容器，三个内层 `<div>` 为项目。
 
 注意：项目只能是容器的顶层子元素，不包含项目的子元素，比如上面代码的`<p>`元素就不是项目。Grid 布局只对项目生效。
 
-### 行和列
+### 行（Row）与列（Column）
 
 容器里面的水平区域称为"行"（row），垂直区域称为"列"（column）。
 
 ![grid布局的行和列](./assets/1_bg2019032502.png)
 
-上图中，水平的深色区域就是"行"，垂直的深色区域就是"列"。
+上图中，水平深色区域为行，垂直深色区域为列。
 
-### 单元格
+### 单元格（Cell）
 
-行和列的交叉区域，称为"单元格"（cell）。
+- 行与列交叉形成的独立区域称为单元格。
+- `n` 行和 `m` 列产生 `n × m` 个单元格。例如，3 行 3 列生成 9 个单元格。
 
-正常情况下，`n`行和`m`列会产生`n x m`个单元格。比如，3行3列会产生9个单元格。
-
-### 网格线
+### 网格线（Grid Line）
 
 划分网格的线，称为"网格线"（grid line）。水平网格线划分出行，垂直网格线划分出列。
 
-正常情况下，`n`行有`n + 1`根水平网格线，`m`列有`m + 1`根垂直网格线，比如三行就有四根水平网格线。
+对于 `n` 行，有 `n + 1` 根水平网格线；对于 `m` 列，有 `m + 1` 根垂直网格线。例如，3 行对应 4 根水平网格线。
 
 ![css grid](./assets/1_bg2019032503.png)
 
 ## 三.容器的属性
 
-Grid 布局的属性分成两类。一类定义在容器上面，称为容器属性；另一类定义在项目上面，称为项目属性。这部分先介绍容器属性。
+Grid 布局的属性分为两类：**容器属性**（定义在容器上）和**项目属性**（定义在项目上）。本节重点介绍容器属性。
 
-### display属性
+### `display` 属性
 
-`display: grid`指定一个容器采用网格布局。
+启用网格布局的入口属性：
+
+- **`display: grid`**：容器为块级网格，占据整行宽度。
+- **`display: inline-grid`**：容器为行内网格，与周围内容inline排列。
 
 ```css
-div {
-    display: grid;
+.container {
+    display: grid; /* 或 inline-grid */
 }
 ```
 
@@ -77,8 +84,8 @@ div {
 默认情况下，容器元素都是块级元素，但也可以设成行内元素。
 
 ```css
-div {
-    display: inline-grid;
+.container {
+  display: inline-grid;
 }
 ```
 
@@ -90,9 +97,12 @@ div {
 
 > 注意，设为网格布局以后，容器子元素（项目）的`float`、`display: inline-block`、`display: table-cell`、`vertical-align`和`column-*`等设置都将失效。
 
-### grid-template-columns 属性和 grid-template-rows 属性
+### `grid-template-columns` 和 `grid-template-rows`
 
-容器指定了网格布局以后，接着就要划分行和列。`grid-template-columns`属性定义每一列的列宽，`grid-template-rows`属性定义每一行的行高。
+定义网格的列宽和行高：
+
+- **`grid-template-columns`**：设置每列宽度。
+- **`grid-template-rows`**：设置每行高度。
 
 ```css
 .container {
@@ -106,7 +116,7 @@ div {
 
 ![grid-template-columns、grid-template-rows 属性](./assets/bg2019032506.png)
 
-除了使用绝对单位，也可以使用百分比。
+支持单位包括：绝对值（如 `px`）、百分比（如 `33.33%`）等。
 
 ```css
 .container {
@@ -116,7 +126,7 @@ div {
 }
 ```
 
-#### repeat()
+#### `repeat()` 函数
 
 有时候，重复写同样的值非常麻烦，尤其网格很多时。这时，可以使用repeat()函数，简化重复的值。上面的代码用repeat()改写如下。
 
@@ -140,7 +150,7 @@ grid-template-columns: repeat(2, 100px 20px 80px);
 
 ![repeat()](./assets/bg2019032507.png)
 
-#### auto-fill 关键字
+#### `auto-fill` 关键字
 
 有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用`auto-fill`关键字表示自动填充。
 
@@ -154,7 +164,7 @@ grid-template-columns: repeat(2, 100px 20px 80px);
 [上面代码](https://jsbin.com/himoku/edit?css,output)表示每列宽度100px，然后自动填充，直到容器不能放置更多的列。
 ![auto-fill](./assets/bg2019032508.png)
 
-#### fr 关键字
+####  `fr` 关键字
 
 为了方便表示比例关系，网格布局提供了`fr`关键字（fraction 的缩写，意为"片段"）。如果两列的宽度分别为`1fr`和`2fr`，就表示后者是前者的两倍。
 
@@ -181,7 +191,7 @@ grid-template-columns: repeat(2, 100px 20px 80px);
 [上面代码](https://jsbin.com/remowec/edit?html,css,output)表示，第一列的宽度为150像素，第二列的宽度是第三列的一半。
 ![fr关键字](./assets/bg2019032510.png)
 
-#### minmax()
+#### `minmax()` 函数
 
 minmax()函数产生一个长度范围，表示长度就在这个范围之中。它接受两个参数，分别为最小值和最大值。
 
@@ -191,7 +201,7 @@ grid-template-columns: 1fr 1fr minmax(100px, 1fr);
 
 上面代码中，`minmax(100px, 1fr)`表示列宽不小于`100px`，不大于`1fr`。
 
-#### auto 关键字
+#### `auto` 关键字
 
 `auto`关键字表示由浏览器自己决定长度。
 
