@@ -36,7 +36,7 @@
   </head>
   ```
 
-- 使用 `@import` 导入其他 CSS 文件 
+- 使用 `@import` 导入其他 CSS 文件 （不建议）
 
   除了 `<link>`，还可以在 `<style>` 标签或外部 CSS 文件中使用 `@import` 导入其他 CSS 文件： 
 
@@ -377,7 +377,7 @@ lang()	/*语言伪类*/
   - 和 `:nth-child(odd)` 同义
 
 - `nth-child(-n+2)`
-  - 代表前 2 个子元素
+  - 正确选择前2个子元素
   
 
 #### 2.2 : nth-last-child( )
@@ -453,7 +453,7 @@ lang()	/*语言伪类*/
 
 
 
-- **content属性**：::before和::after必须定义，否则无效。
+- **content属性**：`::before`/`::after`必须设置`content`，即使是空字符串
 
 - **显示模式**：默认inline，需设置display（如block）以调整宽高。
 
