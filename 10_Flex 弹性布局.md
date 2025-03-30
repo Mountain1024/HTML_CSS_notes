@@ -283,3 +283,254 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
   ```
 
 ![image-20250227151913195](./assets/image-20250227151913195.png)
+
+## Flex 布局常见的案例
+
+### 1. 水平垂直居中（经典居中布局）
+```html
+<div class="container">
+  <div class="centered-box">内容居中</div>
+</div>
+
+<style>
+.container {
+  display: flex;
+  justify-content: center; /* 主轴居中 */
+  align-items: center;     /* 交叉轴居中 */
+  height: 300px;
+  border: 1px solid #ccc;
+}
+.centered-box {
+  padding: 20px;
+  background: lightblue;
+}
+</style>
+```
+**效果**：子元素在容器中完美水平和垂直居中，无需计算尺寸或使用定位。
+
+---
+
+### 2. 等分导航栏（自适应空间分配）
+```html
+<nav class="navbar">
+  <div>首页</div>
+  <div>产品</div>
+  <div>关于</div>
+  <div>联系</div>
+</nav>
+
+<style>
+.navbar {
+  display: flex;
+  justify-content: space-between; /* 两端对齐 */
+  background: #333;
+  padding: 10px;
+}
+.navbar div {
+  flex: 1;           /* 等分剩余空间 */
+  text-align: center;
+  color: white;
+  padding: 10px;
+  margin: 0 5px;
+  background: #666;
+}
+</style>
+```
+**效果**：导航项自动等分空间，间距均匀分布，适配不同屏幕宽度。
+
+---
+
+### 3. 圣杯布局（经典三栏布局）
+```html
+<div class="holy-grail">
+  <header>头部</header>
+  <div class="content">
+    <main>主内容（自适应宽度）</main>
+    <nav>左侧导航（200px）</nav>
+    <aside>右侧边栏（150px）</aside>
+  </div>
+  <footer>底部</footer>
+</div>
+
+<style>
+.holy-grail {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.content {
+  display: flex;
+  flex: 1; /* 填充剩余垂直空间 */
+}
+main {
+  flex: 1;          /* 占据剩余水平空间 */
+  background: #ffe0b2;
+  padding: 20px;
+}
+nav {
+  order: -1;        /* 导航栏移到最左侧 */
+  flex: 0 0 200px;  /* 固定宽度，不伸缩 */
+  background: #b3e5fc;
+}
+aside {
+  flex: 0 0 150px;  /* 固定宽度 */
+  background: #dcedc8;
+}
+header, footer {
+  background: #cfd8dc;
+  padding: 10px;
+}
+</style>
+```
+**效果**：自适应高度，主内容自动填充中间区域，侧边栏固定宽度，无需浮动或定位。
+
+---
+
+### 4. 瀑布流布局（多列动态排列）
+```html
+<div class="masonry">
+  <div class="item">Item 1</div>
+  <div class="item">Item 2（较长内容）</div>
+  <div class="item">Item 3</div>
+  <!-- 更多项目... -->
+</div>
+
+<style>
+.masonry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* 项目间距 */
+}
+.item {
+  flex: 1 1 250px; /* 最小宽度250px，自动换行 */
+  background: #f48fb1;
+  padding: 15px;
+  box-sizing: border-box;
+}
+</style>
+```
+**效果**：项目自动换行并等宽排列，根据容器宽度动态调整列数，类似瀑布流效果。
+
+---
+
+### 5. 表单元素对齐（标签与输入框）
+```html
+<form class="form">
+  <div class="form-group">
+    <label>用户名：</label>
+    <input type="text">
+  </div>
+  <div class="form-group">
+    <label>密码：</label>
+    <input type="password">
+  </div>
+</form>
+
+<style>
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+}
+.form-group {
+  display: flex;
+  align-items: center; /* 垂直居中 */
+  gap: 10px;
+}
+label {
+  flex: 0 0 80px; /* 固定标签宽度 */
+  text-align: right;
+}
+input {
+  flex: 1;        /* 输入框占据剩余空间 */
+  padding: 8px;
+}
+</style>
+```
+**效果**：标签与输入框完美对齐，输入框自适应容器宽度，垂直间距一致。
+
+---
+
+### 6. 响应式导航（移动端适配）
+```html
+<nav class="responsive-nav">
+  <div class="logo">LOGO</div>
+  <div class="menu">
+    <a href="#">首页</a>
+    <a href="#">产品</a>
+    <a href="#">服务</a>
+    <a href="#">关于</a>
+  </div>
+  <div class="hamburger">☰</div>
+</nav>
+
+<style>
+.responsive-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #333;
+  color: white;
+}
+.menu {
+  display: flex;
+  gap: 20px;
+}
+.hamburger { display: none; }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .menu {
+    display: none; /* 隐藏常规菜单 */
+  }
+  .hamburger {
+    display: block; /* 显示汉堡菜单 */
+  }
+}
+</style>
+```
+**效果**：PC端显示水平导航，移动端隐藏菜单显示汉堡图标，轻松实现响应式。
+
+---
+
+### 7. 卡片等高布局（自动匹配高度）
+```html
+<div class="card-container">
+  <div class="card">卡片1<br>内容...</div>
+  <div class="card">卡片2<br>更长的内容...</div>
+  <div class="card">卡片3</div>
+</div>
+
+<style>
+.card-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+.card {
+  flex: 1;          /* 等分宽度 */
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+```
+**效果**：所有卡片自动等高，宽度均分，内容差异不影响布局整齐度。
+
+---
+
+### 关键技巧总结
+
+1. **居中布局**：组合使用 `justify-content` 和 `align-items`
+2. **空间分配**：
+   - `flex: 1` 快速分配剩余空间
+   - `flex-grow`/`flex-shrink` 精细控制伸缩比例
+3. **响应式适配**：
+   - `flex-wrap: wrap` 实现自动换行
+   - 媒体查询调整 `flex-direction`（如手机端改为 `column`）
+4. **顺序控制**：`order` 属性调整视觉顺序
+5. **等高效果**：默认拉伸特性自动实现等高列
+6. **间隙控制**：现代浏览器推荐使用 `gap` 属性替代外边距
