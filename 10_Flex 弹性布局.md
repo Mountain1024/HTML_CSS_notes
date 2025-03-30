@@ -1,6 +1,8 @@
-# 	Flex 布局
+# Flex 布局
 
-## 什么是 Flexbox？
+## Flexbox 基础
+
+### 什么是 Flexbox？
 
 **Flexbox**（弹性盒子布局）是 CSS3 的一种一维布局模型，专为解决现代 Web 应用的布局需求而设计。
 
@@ -14,7 +16,7 @@
 
 > 虽然 Flexbox 是单向布局，但通过 `flex-wrap` 可以实现多行或多列的排列，与 Grid 的二维布局互补。
 
-## 为什么需要 Flex 布局？
+### 为什么需要 Flex 布局？
 
 在 Flexbox 出现之前，Web 开发者主要依赖 **浮动 (float)**、**定位 (positioning)** 和 **表格布局 (table layout)** 进行页面布局，但这些方法存在显著缺陷：
 
@@ -33,18 +35,18 @@
 - **表格布局 (table layout)**  
   使用 HTML 表格元素进行布局，结构复杂，语义化差，且渲染性能较低。
 
-### 传统布局的痛点
+#### **传统布局的痛点**
 
 1. **垂直居中**：需复杂计算或借助表格布局。  
 2. **等分空间**：子元素需手动设置百分比，难适应内容变化。  
 3. **多列对齐**：浮动布局中列高不齐，需额外处理。  
 4. **动态适配**：容器或内容变化时调整困难，常需 hack。
 
-## Flex 布局的重要概念
+## 基础概念
 
 ![image-20250227151411642](./assets/image-20250227151411642.png)
 
-### 核心概念
+### Flexbox 核心术语
 
 - **两个角色**：
   - **Flex Container（弹性容器）**：通过 `display: flex` 或 `inline-flex` 定义的父元素，负责管理子元素的布局。
@@ -88,7 +90,7 @@ Flex 布局基于**主轴（Main Axis）**和**交叉轴（Cross Axis）**的二
 
 ![flex_terms](./assets/flex_terms.png)
 
-## Flex 相关属性
+## Flex 属性概述
 
 Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **Flex 项目** 的属性。
 
@@ -110,9 +112,9 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 - **`order`**：控制子项在容器中的排列顺序。
 - **`align-self`**：单独调整子项在交叉轴上的对齐方式，覆盖 `align-items`
 
-## 核心属性详解
+## Flex Container 属性详解
 
-### **`flex-direction`**
+### `flex-direction`
 
 - **作用**：定义主轴方向，决定 flex 项目（flex item）在容器内的排列顺序。
 - **取值**：
@@ -125,25 +127,26 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 
 ![image-20250227151553004](./assets/image-20250227151553004.png)
 
-### **`flex-wrap`**
+### `flex-wrap`
 
 - **作用**：控制 Flex 项目是否换行，以及如何换行。解决在 Flex 容器空间不足时，Flex 项目的布局问题。
 - **取值**：
   - `nowrap`（默认）：强制单行，子项可能溢出或压缩。
   - `wrap`：允许换行，新行沿交叉轴正方向排列（默认从上到下）
   - `wrap-reverse`：允许换行，新行沿交叉轴负方向排列（从下到上）
-- **示例**：`flex-wrap: wrap;` 让过多子项自然换行，避免挤压。
+
+> **元素最终展示出来的宽度和width有关系，但是没有必然性**
 
 ![image-20250227151612883](./assets/image-20250227151612883.png)
 
-### **`flex-flow`**
+### `flex-flow`
 
 - **作用**：`flex-direction` 和 `flex-wrap` 的简写。
 - **语法**：`flex-flow: <direction> <wrap>;`（顺序随意，可省略任一值）。
 - **默认值**：`row nowrap`。
 - **示例：** `flex-flow: row wrap;` 设定主轴方向为水平，并允许子项换行。
 
-###  **`justify-content`**
+### `justify-content`
 
 - **作用**：控制主轴上 Flex Item 的对齐与间距分配。
 - **取值**：
@@ -156,7 +159,7 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 
 ![image-20250227151644732](./assets/image-20250227151644732.png)
 
-### **`align-items`**
+### `align-items`
 
 - **作用**：控制交叉轴上单行 Flex Item 的对齐方式。
 - **取值**：
@@ -164,12 +167,12 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
   - `flex-start`：项目靠近交叉轴起点排列。
   - `flex-end`：项目靠近交叉轴终点排列。
   - `center`：居中对齐。
-  - `baseline`：按首行文字基线对齐，适用于多行文本的布局。
+  - `baseline`：按所有项目的首行文字基线对齐，即使项目高度不同也能保持文字对齐
 - **示例**：`align-items: center;` 实现单行子项垂直居中。
 
 ![image-20250227151702237](./assets/image-20250227151702237.png)
 
-### **`align-content`**
+### `align-content`
 
 - **作用**：控制交叉轴上多行 Flex Item 的对齐与间距（需启用 `flex-wrap: wrap`）。
 - **取值**：
@@ -186,18 +189,14 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 
 ## Flex Item 属性详解
 
-### **`order`**
+### `order`
 
 - **作用**：定义 Flex Item 的排列顺序，默认值为 `0`，值越小越靠前。
 - **示例**：`order: 1;` 将元素移至后面。
 
 ![image-20250227151734570](./assets/image-20250227151734570.png)
 
-## `flex items`
-
-![image-20250227151913195](./assets/image-20250227151913195.png)
-
-### **`flex-grow`**
+### `flex-grow`
 
 - **作用**：定义剩余空间分配比例，默认值为 `0`（不分配）。
 - **取值**：非负数值（正整数、正小数或 0）。
@@ -205,11 +204,11 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
   - 实际分配比例 = (flex-grow值 / 所有项目的flex-grow总和) × **剩余空间**
   - 示例：容器剩余 300px，子项 A 设置 `flex-grow: 2`，子项 B 设置 `flex-grow: 1`，总和为 3，则 A 分配 200px（2/3），B 分配 100px（1/3）。
 
-- **注意**：若所有子项的 `flex-grow` 均为 0，则剩余空间不分配。
+- **注意**：若所有子项的 `flex-grow` 均为 `0`，则剩余空间不分配。
 
-![image-20250227151928440](./assets/image-20250227151928440.png)
+- Flex items 扩展后的最终 size 不能超过 `max-width\max-height`
 
-##  `flex-shrink`
+### `flex-shrink`
 
 - **作用：**  定义了 flex 元素如何在空间不足时收缩
   
@@ -223,9 +222,7 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 - **约束**：收缩后尺寸不会小于子项的 `min-width` 或 `min-height`。
 - **注意**：`flex-shrink: 0` 表示禁止收缩。
 
----
-
-##  `flex-basis`
+### `flex-basis`
 
 - **作用**：指定 Flex 子项在主轴上的初始尺寸，作为伸缩计算的基准。
   
@@ -240,12 +237,9 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 - **作用**  
   - 在分配剩余空间或计算收缩前，`flex-basis` 作为元素的初始大小参考。
 
-> - 当 flex-basis 为 auto 时，浏览器通常会依据元素的 width/height（如果有设置）或内容尺寸来决定初始大小；因此，宽度/高度属性对 auto 的效果可能会产生影响。
-> - 关当同时存在 width/height 与 flex-basis 时，flex-basis（如果不为 auto）通常会覆盖传统的 width/height。
+> 当同时存在 `width`/`height`与 `lex-basis` 时，`flex-basis`（如果不为 `auto`）通常会覆盖传统的 `width`/`height`
 
----
-
-## **`flex`（简写属性）**
+### `flex`（简写属性）
 
 - **`flex` 是 `flex-grow`、`flex-shrink` 和 `flex-basis` 的简写**  
   - 可指定 1 个、2 个或 3 个值，语法灵活但有严格规则。  
@@ -274,7 +268,7 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
   - `flex: 2 50px` → `flex: 2 1 50px`  
   - `flex: 0 0 100px` → 固定尺寸，不伸缩。
 
-### **`align-self`**
+### `align-self`
 
 - **作用**：覆盖单个子项在交叉轴上的对齐方式，优先级高于 `align-items`。
 
@@ -287,3 +281,5 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
     align-self: flex-end; /* 靠交叉轴底端对齐 */
   }
   ```
+
+![image-20250227151913195](./assets/image-20250227151913195.png)
