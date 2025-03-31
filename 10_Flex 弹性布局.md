@@ -74,7 +74,6 @@
 
 - **`display: flex;`**：创建块级 Flex 容器。该容器会占据一行，类似于块级元素。
 - **`display: inline-flex;`**：创建行内 Flex 容器。该容器可以与其他行内元素并排显示，类似于行内元素。
-  - `inline-flex` 容器的外部表现类似于行内块（`inline-block`），但内部仍按 Flex 模型布局
 
 
 ## Flex 布局模型
@@ -133,11 +132,11 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 - **取值**：
   - `nowrap`（默认）：强制单行，子项可能溢出或压缩。
   - `wrap`：允许换行，新行沿交叉轴正方向排列（默认从上到下）
-  - `wrap-reverse`：允许换行，新行沿交叉轴负方向排列（从下到上）
+  - `wrap-reverse`：允许换行，新行沿交叉轴负方向排列（换行，第一行在下方）
 
-> **元素最终展示出来的宽度和width有关系，但是没有必然性**
+![image-20250331095618337](./assets/image-20250331095618337.png)
 
-![image-20250227151612883](./assets/image-20250227151612883.png)
+![image-20250331095447906](./assets/image-20250331095447906.png)
 
 ### `flex-flow`
 
@@ -203,10 +202,10 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 - **计算方式**：剩余空间按各子项的 `flex-grow` 值比例分配。
   - 实际分配比例 = (flex-grow值 / 所有项目的flex-grow总和) × **剩余空间**
   - 示例：容器剩余 300px，子项 A 设置 `flex-grow: 2`，子项 B 设置 `flex-grow: 1`，总和为 3，则 A 分配 200px（2/3），B 分配 100px（1/3）。
-
 - **注意**：若所有子项的 `flex-grow` 均为 `0`，则剩余空间不分配。
-
 - Flex items 扩展后的最终 size 不能超过 `max-width\max-height`
+
+![v2-5f7898c1f51fa7274a2c0b4a9dfd88c3_1440w](./assets/v2-5f7898c1f51fa7274a2c0b4a9dfd88c3_1440w.png)
 
 ### `flex-shrink`
 
@@ -221,6 +220,31 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
   - 示例：容器溢出 100px，子项 A 设置 `flex-shrink: 2`，子项 B 设置 `flex-shrink: 1`，总和为 3，则 A 收缩 66.67px（2/3），B 收缩 33.33px（1/3）。
 - **约束**：收缩后尺寸不会小于子项的 `min-width` 或 `min-height`。
 - **注意**：`flex-shrink: 0` 表示禁止收缩。
+
+> **Flex布局中flex-grow与flex-shrink的作用规则总结：**
+>
+> 1. **允许换行（`flex-wrap`为`wrap`或`wrap-reverse`）：**
+>    - **子项总宽度小于父容器**：所有子项根据`flex-grow`的值按比例分配剩余空间，若`flex-grow`为0，则不放大。
+>    - **子项总宽度超出父容器宽度**：
+>      - 自动换行，每行独立处理剩余空间。
+>      - 若某行子项总宽度小于该行可用空间，且`flex-grow`存在非零值，则按比例分配该行剩余空间。
+>      - 若某行子项总宽度超出，换行解决，不触发`flex-shrink`。
+>
+> 2. **禁止换行（`nowrap`）：**
+>    - **子项总宽度不足**：`flex-grow`生效，按比例放大（值为0不放大）。
+>    - **子项总宽度超出**：`flex-shrink`生效，按比例缩小（值为0不缩小）。若所有子项`flex-shrink`为0，则横向溢出。
+>
+> **核心规则：**
+> - **规律**：在任意情况下，`flex-grow` 和 `flex-shrink` 只有一个会生效：
+>   - **空间充足（子项总宽度 < 父容器宽度）**：`flex-grow`控制子项放大。
+>   - **空间不足（子项总宽度 > 父容器宽度）**：`flex-shrink`控制子项缩小。
+> - 换行布局（`wrap`）通过分行避免横向溢出，每行剩余空间由`flex-grow`分配，`flex-shrink`不参与。
+> - 不换行（`nowrap`）时，空间不足直接触发`flex-shrink`，空间富余则触发`flex-grow`。
+>
+> **结论：** Flex布局通过`flex-wrap`控制换行策略，从而影响空间分配逻辑：
+>
+> - 换行时，每行独立计算，仅`flex-grow`分配剩余空间。
+> - 不换行时，`flex-grow`和`flex-shrink`分别响应空间富余与不足的情况。
 
 ### `flex-basis`
 
@@ -284,105 +308,96 @@ Flexbox 属性分为两类：作用于 **Flex 容器** 的属性和作用于 **F
 
 ![image-20250227151913195](./assets/image-20250227151913195.png)
 
-## Flex 布局常见的案例
+## Flex 布局的典型案例
 
 ### 1. 水平垂直居中（经典居中布局）
 ```html
-<div class="container">
-  <div class="centered-box">内容居中</div>
+<div class="center-container">
+  <div class="centered-item">居中对齐</div>
 </div>
 
 <style>
-.container {
+.center-container {
   display: flex;
   justify-content: center; /* 主轴居中 */
-  align-items: center;     /* 交叉轴居中 */
-  height: 300px;
-  border: 1px solid #ccc;
+  align-items: center;    /* 交叉轴居中 */
+  height: 100vh;          /* 视口高度 */
+  background: #f5f5f5;
 }
-.centered-box {
-  padding: 20px;
-  background: lightblue;
+.centered-item {
+  padding: 2rem 3rem;
+  background: #4285f4;
+  color: white;
+  border-radius: 8px;
 }
 </style>
 ```
 **效果**：子元素在容器中完美水平和垂直居中，无需计算尺寸或使用定位。
 
+![image-20250330223715747](./assets/image-20250330223715747.png)
+
 ---
 
 ### 2. 等分导航栏（自适应空间分配）
 ```html
-<nav class="navbar">
-  <div>首页</div>
-  <div>产品</div>
-  <div>关于</div>
-  <div>联系</div>
+<nav class="flex-nav">
+  <a class="nav-item active">首页</a>
+  <a class="nav-item">产品</a>
+  <a class="nav-item">服务</a>
+  <a class="nav-item">关于</a>
+  <a class="nav-item">联系</a>
 </nav>
 
 <style>
-.navbar {
+.flex-nav {
   display: flex;
-  justify-content: space-between; /* 两端对齐 */
   background: #333;
-  padding: 10px;
+  border-radius: 4px;
 }
-.navbar div {
-  flex: 1;           /* 等分剩余空间 */
-  text-align: center;
+.nav-item {
+  flex: 1;                /* 等分空间 */
+  padding: 1rem;
   color: white;
-  padding: 10px;
-  margin: 0 5px;
-  background: #666;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.nav-item:hover {
+  background: #555;
+}
+.nav-item.active {
+  background: #4CAF50;
 }
 </style>
 ```
 **效果**：导航项自动等分空间，间距均匀分布，适配不同屏幕宽度。
 
+![image-20250330223829336](./assets/image-20250330223829336.png)
+
 ---
 
 ### 3. 圣杯布局（经典三栏布局）
 ```html
-<div class="holy-grail">
-  <header>头部</header>
-  <div class="content">
-    <main>主内容（自适应宽度）</main>
-    <nav>左侧导航（200px）</nav>
-    <aside>右侧边栏（150px）</aside>
-  </div>
-  <footer>底部</footer>
-</div>
 
-<style>
-.holy-grail {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-.content {
-  display: flex;
-  flex: 1; /* 填充剩余垂直空间 */
-}
-main {
-  flex: 1;          /* 占据剩余水平空间 */
-  background: #ffe0b2;
-  padding: 20px;
-}
-nav {
-  order: -1;        /* 导航栏移到最左侧 */
-  flex: 0 0 200px;  /* 固定宽度，不伸缩 */
-  background: #b3e5fc;
-}
-aside {
-  flex: 0 0 150px;  /* 固定宽度 */
-  background: #dcedc8;
-}
-header, footer {
-  background: #cfd8dc;
-  padding: 10px;
-}
-</style>
+<body class="HolyGrail">
+  <header>...</header>
+  <div class="HolyGrail-body">
+    <main class="HolyGrail-content">...</main>
+    <nav class="HolyGrail-nav">...</nav>
+    <aside class="HolyGrail-ads">...</aside>
+  </div>
+  <footer>...</footer>
+</body>
 ```
 **效果**：自适应高度，主内容自动填充中间区域，侧边栏固定宽度，无需浮动或定位。
+
+![image-20250330230152372](./assets/image-20250330230152372.png)
+
+![image-20250330230259019](./assets/image-20250330230259019.png)
+
+![image-20250330224216162](./assets/image-20250330224216162.png)
+
+![image-20250330224312963](./assets/image-20250330224312963.png)
 
 ---
 
