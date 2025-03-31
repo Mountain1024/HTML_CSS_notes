@@ -167,6 +167,46 @@
 
 ### CSS书写规范
 
+![image-20250331234423664](./assets/image-20250331234423664.png)
+
+**CSS****编写顺序的思路**
+
+n1.先确定盒子本身是如何布局
+
+p* position: absolute
+
+p* float: left/right
+
+p* display: flex
+
+n2.盒子的特性和可见性
+
+p* display: block/inline-block/inline/none
+
+p* visibility/opacity
+
+n3.盒子模型
+
+p* width/height
+
+p* box-sizing
+
+p* margin/border/padding/content
+
+p* box-shadow/text-shadow
+
+n4.内部的文本文字
+
+p* font/text
+
+n5.background
+
+pbackground-image/size/position/color
+
+n6.其他
+
+ptransform/transition/overflow/white-space
+
 #### CSS属性书写顺序
 
 合理的属性顺序能提高代码的可读性和一致性。建议按照以下顺序书写CSS属性：

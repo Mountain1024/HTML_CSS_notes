@@ -203,9 +203,9 @@
 
 5. `data-*`：用于存储自定义数据，通常通过 JavaScript 访问。
 
-   - ```html
-     <div data-user-id="12345" data-role="admin">User Info</div>
-     ```
+   - 通过 JavaScript 的 dataset 属性访问，例如 element.dataset.info。
+
+   - 常用于在 HTML 和 JavaScript 之间传递数据，便于动态交互。
 
 
 ## 事件处理属性
@@ -334,11 +334,13 @@ table, th, td {
 
 ## 元素语义化
 
+![1_1GNf7b6-Sxfplj_Rs1wovw](./assets/1_1GNf7b6-Sxfplj_Rs1wovw.webp)
+
 ```html
 <header> - 页头
 <nav> - 导航
 <main> - 主要内容
-<article> - 文章
+<article> - 内容
 <section> - 区块
 <aside> - 侧边栏
 <footer> - 页脚

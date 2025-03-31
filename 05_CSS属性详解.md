@@ -1,4 +1,4 @@
-# 文本 - 字体 - 背景
+# CSS 属性详解
 
 ## CSS 文本的属性
 
@@ -15,7 +15,7 @@
   - `overline`: 上划线。
   - `line-through`: 中划线（删除线）。
   
-    
+
 
 > **注意**：<a> 标签默认带有 text-decoration: underline，可以通过 text-decoration: none 取消。
 
@@ -113,6 +113,37 @@ p {
 
 - 分别用于设置字母、单词之间的间距
   - 默认是 `0`, 可以设置为负数
+
+###  white-space
+
+`white-space` 属性用于定义文本中空白的处理方式及换行规则：
+
+- `normal`：合并所有连续空白字符，允许文本超出容器宽度时自动换行。
+- `nowrap`：合并所有连续空白字符，禁止文本超出容器宽度时自动换行。
+- `pre`：保留所有连续空白字符，禁止文本超出容器宽度时自动换行。
+- `pre-wrap`：保留所有连续空白字符，允许文本超出容器宽度时自动换行。
+- `pre-line`：合并所有连续空白字符（但保留换行符），允许文本超出容器宽度时自动换行。
+
+### text-overflow
+
+`text-overflow` 属性用于指定文本溢出容器时的显示行为：
+
+- **clip**：直接裁剪溢出内容（可能导致字符显示不完整）。
+- **ellipsis**：在溢出行的末尾显示省略号（...）。
+
+**使用条件与搭配**：
+
+- `text-overflow` 生效的前提是 `overflow` 属性值不为 `visible`。
+
+- 通常与 `white-space` 和 `overflow` 属性配合使用，例如：
+
+  ```css
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  ```
+
+  实现单行文本溢出时显示省略号的常见效果。
 
 ## CSS 字体的属性
 
@@ -220,34 +251,8 @@ p {
 	}
 	```
 	
-	> 在网页设置字体颜色可以设置#333 而不是#000，网页里字体一般没有那么黑
+	> 技巧：在网页设置字体颜色可以设置#333 而不是#000，网页里字体一般没有那么黑
 	
-	
-
-让文本单行显示超出的部分用省略号显示：
-
-```css
-p {
-  white-space: nowrap; /* 禁止换行 */
-  overflow: hidden; /* 隐藏溢出内容 */
-  text-overflow: ellipsis; /* 显示省略号 */
-}
-```
-
-- `overflow: hidden;` 用于隐藏超出元素的文本
-- `text-overflow: ellipsis;` 用于在文本溢出时显示省略号
-- `white-space: nowrap;` 用于让文本不换行
-
-让文本多行显示，超出的部分用省略号显示：
-
-```css
-overflow: hidden;
-text-overflow: ellipsis;
-display: -webkit-box;
--webkit-line-clamp: 2; /* WebKit 私有属性，支持 Chrome/Safari */
--webkit-box-orient: vertical;
-/* 其他浏览器可使用 JavaScript 或行高限制模拟效果 */
-```
 
 ## CSS 背景的属性
 
@@ -305,13 +310,11 @@ background-size 用于设置背景图片的大小
 
 ### background-attachment
 
-`background-attachment` 决定背景图像的位置是在视口内固定, 或者随着包含它的区块滚动。
+`background-attachment` 控制背景图像的位置是固定在视口内，还是随包含它的元素滚动。可选值如下：
 
-可以设置以下 3 个值
-
-- `scroll`: 此关键属性值表示背景相对于元素本身固定, 而不是随着它的内容滚动（默认值）
-- `local`: 此关键属性值表示背景相对于元素的内容固定。如果一个元素拥有滚动机制, 背景将会随着元素的内容滚动.
-- `fixed`: 此关键属性值表示背景 **相对于视口** 固定。即使一个元素拥有滚动机制, 背景也不会随着元素的内容滚动。
+- `scroll（默认）`: 背景相对于元素本身固定，不随内容滚动。
+- `local`: 背景相对于元素内容固定，若元素可滚动，背景会随内容移动。
+- `fixed`: 背景相对于视口固定，即使元素可滚动，背景位置保持不变。
 
 ### background 缩写属性
 
