@@ -17,45 +17,47 @@
   
 
 
-> **注意**：<a> 标签默认带有 text-decoration: underline，可以通过 text-decoration: none 取消。
+> **注意**：`<a>` 标签默认带有 `text-decoration: underline`，可用 `text-decoration: none` 取消。
 
 ### text-transform
 
 `text-transform` 用于设置文字的 **大小写转换**
 
-- Transform: 使变形/变换(形变)
+- "Transform" 意为变形或变换。
 
 常见取值：
 
 - `capitalize`：每个单词的首字母大写（如 "hello world" → "Hello World"）。
 - `uppercase`：所有字符转换为大写（如 "hello" → "HELLO"）。
 - `lowercase`：所有字符转换为小写（如 "HELLO" → "hello"）。
-- `none`：不进行任何转换，保持原始状态。
+- `none`：不进行转换。
 
 ### text-indent
 
-- `text-indent` 用于设置第一行内容的缩进(**首行缩进**)
-- `text-indent: 2em;` 刚好是缩进 2 个文字
-- `em` 单位相对于当前字体大小。可以使用 `rem` 单位，基于根元素字体大小。
-- `text-indent` 支持负值，可实现悬挂缩进（如 `text-indent: -2em;`），但需注意父容器的溢出处理。
+**`text-indent`** 用于设置段落**首行缩进**。
 
-### text-align*
+- `text-indent: 2em;` 表示缩进 2 个字符宽度（`em` 相对于当前字体大小）。
+- 支持 `rem` 单位（相对于根元素字体大小）。
+- 支持负值，例如 `text-indent: -2em;` 可实现悬挂缩进。
 
-- 定义**行内内容**（如文本、图片等）相对于其**块级父元素**的对齐方式。
+### text-align
+
+- 定义**行内内容**（如文本、行内元素、图片）相对于其**块级父元素**的对齐方式。
 
 - 常用的值
-  - `left`: 左对齐
-  - `right`: 右对齐
-  - `center`: 正中间显示
-  - `justify`: 两端对齐（常用于报纸排版，浏览器会调整单词间距）
+  - `left`：左对齐（默认值）。
+  - `right`：右对齐。
+  - `center`：居中对齐。
+  - `justify`：两端对齐，常用于报纸排版，浏览器会调整单词间距。
 
   > **注意事项**：
   >
-  > - 仅对行内元素或 inline-block 元素生效
-  > - 若需将块级元素（如 div）居中，需结合 display: inline-block 和父元素的 text-align: center
-  > - 直接对 div 设置 text-align: center 不会让 div 本身居中，只会影响其内容。
+  > - 仅对行内元素（`inline`）或行内块元素（`inline-block`）生效。
+  > - 对块级元素本身（如 `div`）无效，仅影响其内容。
+  > - 若需要将整个块级元素居中，可以结合 `display: inline-block` 与父元素的 `text-align: center` 来实现：
+  > - 直接对块级元素（如 `<div>`）设置 `text-align: center`只会影响内部行内内容，并不会让 `<div>` 本身水平居中。
   
-- 也可以让 **图片以及其他东西** 居中(**仅针对行元素, 不针对块元素**)*
+- 也可以让 **图片以及其他东西** 居中(**仅针对行元素, 不针对块元素**)
 
 ```css
 /*让div在.block盒子里居中*/
@@ -73,69 +75,70 @@
       display:inline-block;/*转换为行内块元素*/
     }
   </style>
-</head>
-<body>
+
+
   <div class="block">
     <div></div>
   </div>
-</body>
+
 ```
 
 ### text-shadow
 
-`text-shadow` 用于为文本添加阴影效果，类似于 `box-shadow`。
+`text-shadow` 用于为文本添加阴影效果，其语法类似于 `box-shadow`（但不包含扩展半径）。
 
-- 语法格式
+- 语法
 
 ```css
 text-shadow: horizontal-offset vertical-offset blur-radius color;
 ```
 
-- `horizontal-offset`：水平偏移量（正值向右，负值向左）。
-- `vertical-offset`：垂直偏移量（正值向下，负值向上）。
-- `blur-radius`：模糊半径（可选，值越大越模糊）。
-- `color`：阴影颜色（如 rgba(0, 0, 0, 0.3) 表示带透明度的黑色）。
+- `horizontal-offset`：水平偏移（正值向右，负值向左）。
 
-相比于 `box-shadow`, 它没有 `spread-radius` 的值;
-**特点**：相比 box-shadow，无 spread-radius（扩展半径）参数。
+- `vertical-offset`：垂直偏移（正值向下，负值向上）。
+
+- `blur-radius`：模糊半径，值越大越模糊（可选）。
+
+- `color`：阴影颜色，可用 rgba 定义透明度。
+
+**特点**：与 `box-shadow` 不同，无 `spread-radius`（扩展半径）参数。
 
 ```css
 p {
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 水平2px，垂直2px，模糊5px */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 ```
 
-
-
 [通过该网站测试文字阴影](https://html-css-js.com/css/generator/box-shadow/)
 
-### letter-spacing、word-spacing
+### letter-spacing 与 word-spacing
 
-- 分别用于设置字母、单词之间的间距
-  - 默认是 `0`, 可以设置为负数
+- **`letter-spacing`**：设置字符间的间距。
+- **`word-spacing`**：设置单词间的间距。
+- 默认值均为 `0`，支持设置负值以缩小间距。
 
-###  white-space
+### white-space
 
-`white-space` 属性用于定义文本中空白的处理方式及换行规则：
+**`white-space`** 定义文本中空白和换行的处理方式。
 
-- `normal`：合并所有连续空白字符，允许文本超出容器宽度时自动换行。
-- `nowrap`：合并所有连续空白字符，禁止文本超出容器宽度时自动换行。
-- `pre`：保留所有连续空白字符，禁止文本超出容器宽度时自动换行。
-- `pre-wrap`：保留所有连续空白字符，允许文本超出容器宽度时自动换行。
-- `pre-line`：合并所有连续空白字符（但保留换行符），允许文本超出容器宽度时自动换行。
+- `normal`：合并空白字符，允许自动换行。
+- `nowrap`：合并空白字符，不允许自动换行。
+- `pre`：保留空白字符，不自动换行（类似 `<pre>` 标签）。
+- `pre-wrap`：保留空白字符，允许自动换行。
+- `pre-line`：合并空白字符，但保留换行符，允许自动换行。
 
 ### text-overflow
 
-`text-overflow` 属性用于指定文本溢出容器时的显示行为：
+**`text-overflow`** 指定文本溢出容器时的显示方式。
 
-- **clip**：直接裁剪溢出内容（可能导致字符显示不完整）。
-- **ellipsis**：在溢出行的末尾显示省略号（...）。
+- `clip`：直接裁剪溢出部分。
+- `ellipsis`：显示省略号（...）。
 
-**使用条件与搭配**：
+- **使用条件**：
 
-- `text-overflow` 生效的前提是 `overflow` 属性值不为 `visible`。
+  - 需配合 `overflow: hidden;` 和 `white-space: nowrap;`。
 
-- 通常与 `white-space` 和 `overflow` 属性配合使用，例如：
+- **示例**：单行文本溢出显示省略号：
 
   ```css
   white-space: nowrap;
@@ -143,61 +146,52 @@ p {
   text-overflow: ellipsis;
   ```
 
-  实现单行文本溢出时显示省略号的常见效果。
 
 ## CSS 字体的属性
 
 ### font-size
 
-- `font-size` 用于设置字体大小，默认值为 **16px** 。
+- **`font-size`** 设置字体大小，默认值为 `16px`。
 
 - 设置方式
   
-  - **具体数值 + 单位**（如 `px`、`em`）。
+  - 具体值：如 `20px`。
   
-  - **`em` 单位**：相对于父元素的字体大小。
-  
-  - **`rem` 单位**：相对于根元素的字体大小。
-  
-  - **百分比**：基于父元素的 `font-size`，如 `50%` 为父元素字体大小的一半。
+  - `em`：相对于父元素字体大小。
+  - `rem`：相对于根元素（`<html>`）字体大小。
+  - 百分比：如 `50%`，基于父元素字体大小。
   
 
 ### font-family
 
-- `font-family` 用于设置文字的 **字体名称**
-  - 支持设置多个字体，按顺序依次尝试（如`"Arial", "Helvetica", sans-serif`）。
-  - 浏览器优先使用列表中第一个用户设备已安装的字体。
-  - 可结合 @font-face 引入在线字体。
-  - 应在字体列表末尾指定通用字体族（如 `sans-serif`），确保回退机制生效。
+- **`font-family`** 指定文字的字体。
+  - 支持多个字体，按顺序尝试，例如 `"Arial", "Helvetica", sans-serif`。
+  - 浏览器使用第一个用户设备支持的字体。
+  - 建议在字体列表末尾加上通用字体族（如 `serif` 或 `sans-serif`），以确保回退效果。
 
-### font-weight*
+### font-weight
 
-- `font-weight` 用于设置文字的 **粗细**
+- **`font-weight`** 设置文字粗细。
 
 - 常见取值：
-	
- 	- 数值：100 | 200 | 300 | **400**  | 500 | 600 | **700**  | 800 | 900。
- 	- `normal`: 等于 **400** 。
- 	- `bold`: 等于 **700** 。
-	
- 	- `strong`、`b`、`h1~h6` 等标签的 font-weight 默认就是 bold
+  - 数值：`100` 至 `900`（`400` 为正常，`700` 为粗体）。
+  - 关键字：`normal`（`400`）、`bold`（`700`）。
+
+- `strong`、`b`、`h1~h6` 等标签的 font-weight 默认就是 bold
 
 ### line-height
 
-- `line-height` 用于设置行高（即行间距）。
-  - **行高** 可以先简单理解为 **一行文字所占据的高度**
+- **`line-height`** 设置行高（行间距）。
+- **定义**：
+  - 行高是两行文字基线（`baseline`，小写字母 `x` 底部对齐的线）间的距离。
+  - 行距 = 行高 - 字体高度。
 
 ![image-20231212010032299](./assets/image-20231212010032299.png)
 
-- **行高** 的严格定义: 两行文字 **基线(baseline)之间的间距**
-- 基线(`baseline`): 与小写字母 **x 最底部对齐** 的线
-- 行距: 第一行的 **底线** 到第二行的 **顶线** 之间的距离叫行距
-- **行高 = 基线之间的距离**
-- 行高 - 字体的高度 = 行距
+**取值**：
 
-`line-height`-字体的高度 = 行距
-
-`line-height` 可使用无单位值（如 `1.5`），表示相对于当前字体大小的倍数。例如，`font-size: 16px; line-height: 1.5;` 实际行高为 `24px`。
+- 无单位值：如 `1.5`，表示当前字体大小的倍数。
+- 具体值：如 `20px`。
 
 **行距是上下等分** 的, 可以利用这个特性, 使 **文本** 在容器内 **垂直居中**
 
@@ -218,17 +212,16 @@ p {
 
 ### font-style
 
-`font-style` 用于设置文字的 **常规、斜体显示**
-
-- `normal`：常规显示。
-- `italic`：斜体，使用字体的内置斜体样式（需字体支持）。
-- `oblique`：倾斜，通过 CSS 强制倾斜文本（即使字体无斜体样式）。
+- `font-style` 控制文本的倾斜样式。
+  - `normal`：正常字体。
+  - `italic`：斜体（依赖于字体是否提供内置斜体样式）。
+  - `oblique`：倾斜，通常为浏览器模拟效果（即使字体不含斜体）。
 
 注意：em、i、cite、address、var、dfn 等元素的 font-style 默认就是 `italic`
 
 ### font-variant
 
-- `font-variant` 可以影响小写字母的显示形式
+- **`font-variant`** 影响小写字母的显示形式。
   - `variant` 是变形的意思；
 - 可以设置的值如下
   - `normal`: 常规显示
@@ -236,36 +229,34 @@ p {
 
 ### font 缩写属性
 
-- **font** 是一个 **缩写** 属性
-	
- 	- **font** 属性可以用来作为 `font-style`, `font-variant`, `font-weight`, `font-size,` `line-height` 和 `font-family` 属性的简写;
- 	- **顺序**: `font-style` `font-variant` `font-weight` `font-size/line-height` `font-family`
-- 规则:
- 	- `font-style`、`font-variant`、`font-weight` 可以随意 **调换顺序**, 也可以 **省略**
- 	- `/line-height` 可以省略, 如果不省略, 必须跟在 `font-size` **后面**
- 	- `font-size`、`font-family` 不可以调换顺序, 不可以省略
-	
-	```css
-	p {
-	  font: italic 700 16px/1.5 "Arial", sans-serif; /* 斜体、粗体、16px字号、1.5倍行高 */
-	}
-	```
-	
-	> 技巧：在网页设置字体颜色可以设置#333 而不是#000，网页里字体一般没有那么黑
-	
+- **`font`** 是字体相关属性的缩写。
+
+  - **顺序**: `font-style` `font-variant` `font-weight` `font-size/line-height` `font-family`
+
+- **规则**：
+
+  - `font-size` 和 `font-family` 必填且顺序固定。
+  - 其他属性可选且顺序可调。
+  - `/line-height` 可以省略, 如果不省略, 必须跟在 `font-size` **后面**
+
+  - **示例**：
+
+  ```css
+  p {
+    font: italic 700 16px/1.5 "Arial", sans-serif;
+  }
+  ```
+
+  > **小技巧**：在网页中，为了视觉效果通常不会使用纯黑色 `#000`，而使用稍柔和的颜色如 `#333`。
+
 
 ## CSS 背景的属性
 
-> 设置 background-color 属性的是盒模型的内容和内边距部分。也就是说，背景色会填充 content 区域和 padding 区域，背景色也会设置到 `border` 下面
+> `background-color` 填充 `content` 和 `padding` 区域，位于 `border` 下方。
 
 ### background-image
 
-- `background-image` 用于设置元素的 **背景图片**
- 	- 会盖在(**不是覆盖**)`background-color` 的上面
-  
-- 支持多张图片，语法为 `background-image: url('img1.jpg'), url('img2.jpg');`，第一张图片显示在最上层。
-
-> 注意: 如果设置了背景图片后, 元素 **没有** 具体的 **宽高**, 背景图片是不会显示出来的
+`background-image` 用于设置元素的背景图片，显示在背景色之上。
 
 ```css
 div {
@@ -275,11 +266,23 @@ div {
 }
 ```
 
+**注意事项**：
+
+- 可同时设置多张图片，语法如下：
+
+  ```css
+  background-image: url('img1.jpg'), url('img2.jpg');
+  ```
+
+  则第一张图片位于最上层。
+
+- 元素需有宽高，否则图片不显示。
+
 ### background-repeat
 
-`background-repeat` 用于设置背景图片是否要**平铺**
+`background-repeat` 用于定义背景图片是否重复平铺。
 
-取值
+**取值**：
 
 - `repeat`：水平和垂直方向平铺（默认）。
 - `no-repeat`：不平铺。
@@ -290,21 +293,35 @@ div {
 
 ### background-size
 
-background-size 用于设置背景图片的大小
+**`background-size`** 设置背景图片大小。
 
-- auto：默认值，保持图片原始大小
-- cover：缩放图片以覆盖整个元素，可能部分被裁剪
-- contain：缩放图片以完全显示，保持宽高比，可能留有空白
-- 具体值：如 100px(宽) 200px(高)
-- 百分比：如 50% 50%，相对于元素尺寸
+- `auto`：默认，保持图片原始尺寸。
+- `cover`：缩放覆盖元素，可能裁剪。
+- `contain`：缩放适应元素，可能留白。
+- **具体尺寸**：如 `100px 200px`（分别指定宽和高）。
+- **百分比**：如 `50% 50%`，相对于元素尺寸。
 
 ### background-position
 
 `background-position` 用于设置背景图片在 **水平、垂直方向** 上的具体位置/起始位置
 
-- 具体值：如 20px 30px（水平偏移 20px，垂直偏移 30px）。
-- 关键字：水平（left、center、right），垂直（top、center、bottom）。
+**取值**：
+
+- 具体值：如 `20px 30px`。
+
+- 关键字：`left`、`center`、`right`（水平）；`top`、`center`、`bottom`（垂直）。
+
+- 百分比：如 `50% 50%`（图片中心对齐元素中心）。
+
 - 若只指定一个值，另一轴默认为 center。
+
+**示例**：
+
+```css
+div {
+  background-position: center center;
+}
+```
 
 ![image-20231218193336079](./assets/image-20231218193336079.png)
 
@@ -312,48 +329,52 @@ background-size 用于设置背景图片的大小
 
 `background-attachment` 控制背景图像的位置是固定在视口内，还是随包含它的元素滚动。可选值如下：
 
-- `scroll（默认）`: 背景相对于元素本身固定，不随内容滚动。
-- `local`: 背景相对于元素内容固定，若元素可滚动，背景会随内容移动。
-- `fixed`: 背景相对于视口固定，即使元素可滚动，背景位置保持不变。
+- `scroll`：随元素滚动（默认）。
+- `fixed`：固定于视口。
+- `local`：随元素内容滚动。
 
 ### background 缩写属性
 
 `background` 是多个背景属性的简写。
 
-background 简写方式:
+**语法**：
 
+```css
+background: [color] [image] [repeat] [attachment] [position] / [size];
 ```
-background: [background-color] [background-image] [background-repeat] [background-attachment] [background-position] / [background-size] [background-origin] [background-clip]
+
+**示例**：
+
+```css
+div {
+  background: #fff url('bg.jpg') no-repeat fixed center / cover;
+}
 ```
 
-> 注意：
-background-size 可以省略, 如果不省略, `/background-size` 必须紧跟着 background-position 出现，以 / 分割
-其他属性顺序任意, 不设置取默认值
-
-> 大部分网站都是灰色背景 `#f5f5f5`
+- 注意若使用 `background-size`，则需要在 `background-position` 后用斜杠（/）分隔。
+- 属性顺序较为灵活，但必须确保 `background-color`、`background-image`、`background-repeat`、`background-attachment` 与 `background-position`（及其后可选的 `/background-size`）能正确解析。
 
 ### background-image 和 img 对比
 
-- 利用 background-image 和 img 都能够实现显示图片的需求, 在开发中该如何选择?
-
-| 性质                   | img              | background-image |
-| ---------------------- | ---------------- | ---------------- |
-| 图片是否占用空间       | √                | ×                |
-| 浏览器右键直接查看地址 | √                | ×                |
-| 支持CSS Sprite         | ×                | √                |
-| 更有可能被搜索引擎收录 | √（结合alt属性） | ×                |
+| **性质**        | **img**           | **background-image** |
+| --------------- | ----------------- | -------------------- |
+| 占用空间        | 是                | 否                   |
+| 右键查看地址    | 是                | 否                   |
+| 支持 CSS Sprite | 否                | 是                   |
+| 搜索引擎收录    | 是（需 alt 属性） | 否                   |
 
 总结
 
-- **img**：适用于内容核心图片（如 LOGO、产品图）。
-- **background-image**：适用于装饰性图片（如背景图、图标）。
+- 装饰性背景通常采用 `background-image`。
+- 内容相关图片建议使用 `<img>` 标签以利于 SEO（同时可使用 `alt` 属性）。
 
 ## cursor
 
-**cursor** 设置鼠标指针在元素上的**光标样式**。
+`cursor` 属性用于设置当鼠标悬停在元素上时显示的光标样式。
 
-- `auto`：浏览器根据上下文自动选择（如文本上为 text，链接上为 pointer）。
-- `default`：默认箭头样式。
-- `pointer`：小手形状，常用于可点击元素。
-- `text`：文本输入光标（竖线）。
-- `none`：隐藏光标。
+- **常见取值**：
+  - `auto`：浏览器根据上下文决定。
+  - `default`：默认箭头。
+  - `pointer`：小手（可点击）。
+  - `text`：文本光标（竖线）。
+  - `none`：隐藏光标。
