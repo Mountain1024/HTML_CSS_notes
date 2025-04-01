@@ -1,44 +1,91 @@
-#### `vertical-align` 
-`vertical-align` 控制行内元素或行内块级元素在**行盒（line box）**内的垂直对齐位置。
+## vertical-align
 
-**行盒与高度的关系**  
+`vertical-align` 属性影响 **行内级元素（inline-level elements）** 或 **行内块级元素（inline-block elements）** 在一个 **行盒（line box）** 中的垂直对齐方式。
 
-1. - **无内容时**：`div` 无高度，因无支撑元素。  
-   - **有内容时**：高度由内容撑起，而撑起的本质是**行高（line-height）**。  
-   - **行高作用**：行盒（line box）会包裹每行内容，行高确保文字等行内元素被完整包含，进而撑起父容器（如 `div`）高度。
-   
-2. **深入思考：复杂内容的行盒包裹规律**  
-   当 `div` 内包含文字、图片、`inline-block` 元素，甚至涉及 `margin` 等属性时，行盒如何处理？  
-   - **核心规律**：行盒始终确保包裹当前行所有内容，其高度由最高元素决定，对齐方式则由 `vertical-align` 控制。
+### 基础思考：`div` 的高度从何而来？
+- **问题**：一个 `div` 未设置高度时，会有高度吗？  
+  - **无内容**：高度为 0。  
+  - **有内容**：内容会撑起 `div` 的高度。  
+- **本质**：  
+  - 内容具有 **行高（line-height）**，撑起了 `div` 的高度。  
+- **行高撑起高度的原因**：  
+  - CSS 中存在 **行盒（line boxes）**，用于包裹一行中的所有 **行内级元素（inline-level elements）**。  
+  - 文字等内容有行高，**line boxes** 必须完整包裹行高，才能正确包含这些元素。
 
-#### **不同场景下的行盒行为分析**
-假设红色框为包裹的 `div`，以下为典型场景：  
-1. **仅文字**：行盒按文字的行高完整包裹，高度由 `line-height` 决定。  
-2. **文字+图片**：行盒以最高元素（通常为图片）为基准，文字按 `vertical-align` 对齐。  
-3. **文字+图片+较大 `inline-block`**：行盒高度由最大元素（`inline-block`）决定，其余元素对齐方式受 `vertical-align` 影响。  
-4. **文字+图片+较大 `inline-block`+`margin-bottom`**：行盒仍包裹所有内容，`margin-bottom` 可能影响 `inline-block` 的基准线位置。  
-5. **文字+图片+较大 `inline-block`+`margin-bottom`+更多文字**：行盒综合考虑所有元素，高度由最高者决定，对齐仍以基准线为参考。
+### 进一步思考：
+如果 `div` 中包含 **文字**、**图片**、**inline-block 元素**，甚至这些元素设置了 `margin` 等属性，会如何影响布局？
 
-#### **关键：`vertical-align` 的默认值与基线（baseline）**
-- **结论**：行盒始终完整包裹行内内容，而对齐的“千奇百怪”源于**基线（baseline）**的默认对齐规则。  
-- **基线定义**：  
-  - 文字：字母 `x` 的下边缘。  
-  - `inline-block` 无文字：`margin-bottom` 底部（无 `margin` 则为盒子底部）。  
-  - `inline-block` 有文字：最后一行文字的 `x` 下边缘。  
-- **规律**：默认 `vertical-align: baseline` 使元素基于各自基线对齐，解释了常见对齐现象。
+---
 
-#### **`vertical-align` 其他取值解析**
-理解基线后，其他值逻辑清晰：  
-- **`top`**：元素顶部与行盒顶部对齐。  
-- **`middle`**：元素中心点与父盒基线加 `x-height` 一半对齐。  
-- **`bottom`**：元素底部与行盒底部对齐。  
-- **`<percentage>`**：相对于 `line-height` 计算升降距离，`0%` 等同基线。  
-- **`<length>`**：固定距离升降，`0cm` 等同基线。  
+## 深入理解 vertical-align – 不同情况分析
 
-#### **实战应用：消除图片底部间隙**
-图片下方常出现由基线对齐导致的间隙，解决方法：  
-1. 设置 `vertical-align: top/middle/bottom`，打破基线对齐。  
-2. 将图片转为 `block` 元素，脱离行盒规则。
+以下分析假设 `div` 为容器，内部元素的对齐受 `vertical-align` 控制：
 
-#### **总结**
-`vertical-align` 的核心是基线对齐与行盒包裹规律。掌握基线定义及其它取值逻辑，即可灵活应对各种布局场景，轻松解决对齐难题。
+1. **情况一：只有文字**  
+   - **line boxes** 包裹文字的 **行高（line-height）**。  
+   - 文字以默认的 `baseline`（基线）对齐。
+
+2. **情况二：图片 + 文字**  
+   - **line boxes** 包裹图片和文字的行高。  
+   - 图片和文字根据各自的 `vertical-align` 值对齐（默认 `baseline`）。
+
+3. **情况三：图片 + 文字 + inline-block（比图片大）**  
+   - **line boxes** 包裹所有元素的行高。  
+   - 各元素按 `vertical-align` 值对齐，默认以基线为准。
+
+4. **情况四：图片 + 文字 + inline-block（比图片大且设置 margin-bottom）**  
+   - **line boxes** 包裹所有元素的行高。  
+   - `inline-block` 的 `margin-bottom` 会影响其在 **line boxes** 中的位置，但不改变行高计算。
+
+5. **情况五：图片 + 文字 + inline-block（比图片大且设置 margin-bottom）+ 更多文字**  
+   - **line boxes** 仍包裹所有元素的行高。  
+   - 各元素按 `vertical-align` 对齐，`margin-bottom` 影响 `inline-block` 的最终位置。
+
+---
+
+## vertical-align 的基线（baseline）
+
+- **核心结论**：  
+  **line boxes** 会确保包裹当前行的所有内容。  
+- **对齐看似复杂的原因**：  
+  - 默认对齐方式是 `baseline`，不同元素的基线定义不同。  
+- **什么是 baseline？**  
+  - **文本**：字母 **x** 的底部。  
+  - **inline-block（无文本）**：元素的 `margin-bottom` 底部（若无 `margin`，则是盒子底部）。  
+  - **inline-block（有文本）**：最后一行文本的 **x** 的底部。
+
+---
+
+## vertical-align 的取值
+
+以下为 `vertical-align` 的常见值及其含义（参考 MDN）：
+
+- **`baseline`（默认值）**：  
+  将元素的基线与父元素的基线对齐。  
+- **`top`**：  
+  将元素的顶部与 **line boxes** 的顶部对齐。  
+- **`middle`**：  
+  将元素的垂直中心点与父元素基线加上 **x-height**（小写字母 x 高度）一半的位置对齐。  
+- **`bottom`**：  
+  将元素的底部与 **line boxes** 的底部对齐。  
+- **`<percentage>`**：  
+  相对于 `line-height` 的百分比偏移，正值向上，负值向下，`0%` 等同于 `baseline`。  
+- **`<length>`**：  
+  指定具体的偏移距离（如 `10px` 或 `-5em`），`0cm` 等同于 `baseline`。
+
+---
+
+## 解决图片下边缘间隙的方法
+
+图片作为行内级元素时，常因基线对齐在底部产生间隙，可通过以下方法解决：  
+1. 设置 `vertical-align: top`、`middle` 或 `bottom`。  
+2. 将图片转为块级元素：`display: block`。
+
+---
+
+## 补充说明
+
+- **行内级元素（inline-level elements）**：包括 `inline`、`inline-block`、`inline-table` 等。  
+- **行盒（line box）**：CSS 布局中包裹一行内容的矩形区域。  
+- **x-height**：小写字母 **x** 的高度，影响 `middle` 对齐计算。  
+

@@ -155,6 +155,77 @@
 
 - **属性**：`frameborder`（0无边框，1有边框），`target`（`_parent`父窗口，`_top`顶层）。
 
+### `<video>` 元素
+
+HTML5 提供 `<video>` 标签用于在网页中嵌入视频。它支持多种格式（如 MP4、WebM、OGG），但具体支持情况取决于浏览器。
+
+**基本用法**：
+
+```html
+<video src="video.mp4" controls></video>
+```
+
+- **src**：指定视频文件路径。
+- **controls**：显示播放控件（播放/暂停、音量调节、进度条等）。
+
+**常用属性**：
+
+- **width** / **height**：设置视频显示尺寸（单位：像素）。
+- **autoplay**：自动播放（部分浏览器要求视频静音才能生效）。
+- **muted**：静音播放。
+- **loop**：循环播放。
+- **poster**：指定视频加载时显示的封面图。
+
+示例：
+
+```html
+<video src="video.mp4" width="640" height="360" controls autoplay muted loop poster="thumbnail.jpg"></video>
+```
+
+**兼容性与备用方案**：
+
+不同浏览器对视频格式支持不同，建议使用 `<source>` 提供多个格式，以加载首个兼容的文件。对于不支持 `<video>` 的浏览器，可提供备用文本：
+
+```html
+<video controls>
+  <source src="video.mp4" type="video/mp4">
+  <source src="video.webm" type="video/webm">
+  您的浏览器不支持 video 标签，请升级浏览器。
+</video>
+```
+
+### `<audio>` 标签
+
+`<audio>` 标签用于嵌入音频，支持格式包括 MP3、WAV、OGG，具体兼容性依赖浏览器。
+
+**基本用法**：
+
+```html
+<audio src="audio.mp3" controls></audio>
+```
+
+- **src**：指定音频文件路径。
+- **controls**：显示播放控件。
+
+**常用属性**：
+
+- **autoplay**：自动播放。
+- **muted**：静音播放。
+- **loop**：循环播放。
+- **preload**：控制预加载行为，可选值：
+  - `auto`：尽可能预加载整个音频。
+  - `metadata`：仅加载元数据（如时长）。
+  - `none`：不预加载。
+
+示例：
+
+```html
+<audio src="audio.mp3" controls autoplay loop></audio>
+```
+
+**兼容性与备用方案**：
+
+与 `<video>` 类似，可使用 `<source>` 兼容不同格式
 
 ## div 元素和 span 元素
 
@@ -186,7 +257,7 @@
 
 - 块级元素、`inline-block` 元素
   - 一般情况下, 可以包含其他 **任何元素**(比如块元素、行元素、`inline-block` 元素)
-  - **特殊情况: **`<p>` 元素不能包含其他块级元素 (如 `<p>` 元素里不能放 `<div>` 元素, 会出现 bug)
+  - **特殊情况**：`<p>` 元素不能包含其他块级元素 (如 `<p>` 元素里不能放 `<div>` 元素, 会出现 bug)
 - 行元素 (比如 `<a>`、`<span>`、`<strong>` 等)
   - 只能包含行元素, 不能包含块元素
 - 在 HTML 中，多个空格或换行符会被渲染为一个空格。
@@ -315,13 +386,13 @@ table, th, td {
   tr:nth-child(even) { background-color: #f2f2f2; }
   ```
 
-### 单元格合并 
+### 单元格合并
 
 - **跨列**：`colspan="n"`（合并n列）。
 - **跨行**：`rowspan="n"`（合并n行）。
 - **规则**：在起始单元格设置属性，删除被合并的`<td>`
 
-> **操作步骤** ： 
+> **操作步骤** ：
 >
 > 1. 确定需要跨行或跨列的单元格。
 > 2. 确定是跨“行”还是跨“列”。
