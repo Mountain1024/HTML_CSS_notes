@@ -1,4 +1,4 @@
-# CSS命名规范以及书写顺序
+
 
 #### 常用CSS命名规则
 
@@ -165,95 +165,45 @@
 
 ---
 
-### CSS书写规范
-
 ![image-20250331234423664](./assets/image-20250331234423664.png)
 
-**CSS****编写顺序的思路**
+CSS 编写顺序的思路
 
-n1.先确定盒子本身是如何布局
+1. **先确定盒子本身是如何布局**
 
-p* position: absolute
+- `position: absolute / relative / fixed / static`  
+- `float: left / right / none`  
+- `display: flex / grid / block`  
 
-p* float: left/right
+2. **盒子特性和可见性**  
 
-p* display: flex
+- `display: block / inline-block / inline / none`  
+- `visibility: visible / hidden`  
+- `opacity: 0-1`  
 
-n2.盒子的特性和可见性
+3. **盒子模型**  
 
-p* display: block/inline-block/inline/none
+- `width` / `height`  
+- `box-sizing: border-box / content-box`  
+- `margin` / `padding` / `border`  
+- `box-shadow`  
 
-p* visibility/opacity
+4. **内部的文本文字**
 
-n3.盒子模型
+- `font`（包括 `font-size`、`font-family`、`font-weight` 等）  
+- `text`（如 `text-align`、`text-decoration`、`line-height` 等）  
 
-p* width/height
+5. **背景**  
 
-p* box-sizing
+- `background-color`  
+- `background-image` / `background-size` / `background-position`  
 
-p* margin/border/padding/content
+6. **其他属性**  
 
-p* box-shadow/text-shadow
-
-n4.内部的文本文字
-
-p* font/text
-
-n5.background
-
-pbackground-image/size/position/color
-
-n6.其他
-
-ptransform/transition/overflow/white-space
-
-#### CSS属性书写顺序
-
-合理的属性顺序能提高代码的可读性和一致性。建议按照以下顺序书写CSS属性：
-
-1. **定位与布局**  
-   - `position`、`top`、`right`、`bottom`、`left`  
-   - `z-index`  
-   - `display`、`float`  
-
-2. **尺寸与间距**  
-   - `width`、`height`  
-   - `padding`、`margin`  
-
-3. **文本与排版**  
-   - `font`（包括 `font-size`、`font-family` 等）  
-   - `line-height`、`letter-spacing`  
-   - `color`、`text-align`、`text-decoration`  
-
-4. **背景与边框**  
-   - `background`（包括 `background-color`、`background-image` 等）  
-   - `border`、`border-radius`  
-
-5. **其他效果**  
-   - `animation`、`transition`  
-   - `opacity`、`transform`  
-
-**示例：**
-
-```css
-.element {
-  position: absolute;
-  top: 10px;
-  z-index: 100;
-  display: block;
-  width: 200px;
-  height: 100px;
-  padding: 10px;
-  margin: 0 auto;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-  text-align: center;
-  background: #fff;
-  border: 1px solid #ddd;
-  transition: all 0.3s ease;
-}
-```
+- `transform`  
+- `transition`  
+- `overflow: hidden / scroll / auto`  
+- `white-space: nowrap / normal`  
 
 ---
 

@@ -140,7 +140,7 @@ Flexbox 的属性分为两类：作用于 **Flex Container** 的属性（控制�
   - `space-around`：每项两侧间距相等（首尾间距为中间一半）。
   - `space-evenly`：所有间隔完全相等（包括容器边缘与首尾项目之间）
 
-![image-20250331134106258](./assets/image-20250331134106258.png)
+![image-20250331134106258](./assets/justify-content.png)
 
 ### `align-items`
 
@@ -152,7 +152,7 @@ Flexbox 的属性分为两类：作用于 **Flex Container** 的属性（控制�
   - `center`: 居中对齐。
   - `baseline`: 按项目内容的第一行文字基线对齐。
 
-![image-20250227151702237](./assets/image-20250227151702237.png)
+![image-20250227151702237](./assets/align-items.png)
 
 ### `align-content`
 
@@ -167,7 +167,7 @@ Flexbox 的属性分为两类：作用于 **Flex Container** 的属性（控制�
   - `space-evenly`: 所有行之间的间隔，以及首行与起点、末行与终点之间的间隔都完全相等。
 - *注意*: 只有一行项目时此属性无效。
 
-![image-20250227151716874](./assets/image-20250227151716874.png)
+![image-20250227151716874](./assets/align-content.png)
 
 ### `gap` / `row-gap` / `column-gap`
 
@@ -199,7 +199,7 @@ Flexbox 的属性分为两类：作用于 **Flex Container** 的属性（控制�
   }
   ```
 
-  ![image-20250331135105282](./assets/image-20250331135105282.png)
+  ![image-20250331135105282](./assets/gap.png)
 
 ## Flex Item 属性详解
 
@@ -587,4 +587,4 @@ input {
 >
 > - **方法**：将 Flex 布局替换为 CSS Grid 布局，使用 `grid-template-columns` 定义固定列宽。  
 > - **优点**：Grid 布局天然支持多行多列的对齐，且不会因最后一行元素不足而导致间距异常。  
-> - **适用场景**：适合需要更精确控制网格结构的场景。
+
