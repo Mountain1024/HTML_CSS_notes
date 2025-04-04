@@ -1,40 +1,35 @@
 # CSS 属性详解
 
-## CSS 文本的属性
+## CSS 文本属性
 
 ### `text-decoration` - 文本装饰线
 
-- `text-decoration` 用于为文本添加**装饰线**。
-  
-  - `decoration` 是装饰/装饰品的意思;
-  
-- 常见取值：
+为文本添加装饰线。
 
-  - `none`: 无装饰线（可去除 `<a>` 元素的默认下划线）。
-  - `underline`: 下划线。
-  - `overline`: 上划线。
-  - `line-through`: 中划线（删除线）。
-  
+**常用值**:
+
+*   `none`: 无装饰线 (常用于去除 `<a>` 的默认下划线)。
+*   `underline`: 下划线。
+*   `overline`: 上划线。
+*   `line-through`: 中划线 (删除线)。
 
 
-> **注意**：`<a>` 标签默认带有 `text-decoration: underline`，可用 `text-decoration: none` 取消。
+> **注意**：`<a>` 标签默认带有 `text-decoration: underline`，可用 `text-decoration: none` 去除。
 
 ### `text-transform` - 文本大小写转换
 
-`text-transform` 用于设置文字的 **大小写转换**
+设置文本的大小写。
 
-- "Transform" 意为变形或变换。
+**常用值**:
 
-常见取值：
-
-- `capitalize`：每个单词的首字母大写（如 "hello world" → "Hello World"）。
-- `uppercase`：所有字符转换为大写（如 "hello" → "HELLO"）。
-- `lowercase`：所有字符转换为小写（如 "HELLO" → "hello"）。
-- `none`：不转换。
+*   `capitalize`: 每个单词首字母大写 ("hello world" → "Hello World")。
+*   `uppercase`: 全部转为大写 ("hello" → "HELLO")。
+*   `lowercase`: 全部转为小写 ("HELLO" → "hello")。
+*   `none`: 不转换 (默认)。
 
 ### `text-indent` - 首行缩进
 
-**`text-indent`** 用于设置段落**首行缩进**。
+设置块级元素内容的第一行缩进。
 
 - `text-indent: 2em;` 表示缩进 2 个字符宽度（`em` 相对于当前字体大小）。
 - 支持 `rem` 单位（相对于根元素字体大小）。
@@ -42,21 +37,22 @@
 
 ### `text-align` - 文本水平对齐
 
-- 定义**行内内容**（如文本、行内元素、图片）相对于其**块级父元素**的对齐方式。
+定义**行内内容**（如文本、行内元素、图片）相对于其**块级父元素**的水平对齐方式。
 
-- 常用的值
-  - `left`：左对齐（默认值）。
-  - `right`：右对齐。
-  - `center`：居中对齐。
-  - `justify`：两端对齐，常用于报纸排版，浏览器会调整单词间距。
+**常用值**:
 
-  > **注意事项**：
-  >
-  > - 仅对行内元素（`inline`）或行内块元素（`inline-block`）生效。
-  > - 对块级元素本身（如 `div`）无效，仅影响其内容。
-  > - 若需要将整个块级元素居中，可以结合 `display: inline-block` 与父元素的 `text-align: center` 来实现：
-  > - 直接对块级元素（如 `<div>`）设置 `text-align: center`只会影响内部行内内容，并不会让 `<div>` 本身水平居中。
-  
+*   `left`: 左对齐 (默认)。
+*   `right`: 右对齐。
+*   `center`: 居中对齐。
+*   `justify`: 两端对齐 (调整字间距以填充行)。
+
+> **注意事项**：
+>
+> - 仅对行内元素（`inline`）或行内块元素（`inline-block`）生效。
+> - 对块级元素本身（如 `div`）无效，仅影响其内容。
+> - 若需要将整个块级元素居中，可以结合 `display: inline-block` 与父元素的 `text-align: center` 来实现：
+> - 直接对块级元素（如 `<div>`）设置 `text-align: center`只会影响内部行内内容，并不会让 `<div>` 本身水平居中。
+
 - 也可以让 **图片以及其他东西** 居中(**仅针对行元素, 不针对块元素**)
 
 ```css
@@ -84,60 +80,47 @@
 
 ### `text-shadow` - 文本阴影
 
-`text-shadow` 用于为文本添加阴影效果，其语法类似于 `box-shadow`（但不包含扩展半径）。
+为文本添加阴影。
 
-- 语法
-
-```css
-text-shadow: horizontal-offset vertical-offset blur-radius color;
-```
-
-- `horizontal-offset`：水平偏移（正值向右，负值向左）。
-
-- `vertical-offset`：垂直偏移（正值向下，负值向上）。
-
-- `blur-radius`：模糊半径，值越大越模糊（可选）。
-
-- `color`：阴影颜色，可用 rgba 定义透明度。
-
-**特点**：与 `box-shadow` 不同，无 `spread-radius`（扩展半径）参数。
-
-```css
-p {
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-```
+*   **语法**: `text-shadow: offset-x offset-y blur-radius color;`
+    *   `offset-x`: 水平偏移 (正右负左)。
+    *   `offset-y`: 垂直偏移 (正下负上)。
+    *   `blur-radius`: 模糊半径 (可选, 值越大越模糊)。
+    *   `color`: 阴影颜色 (可用 `rgba` 定义透明度)。
+*   **注意**: 与 `box-shadow` 不同，没有扩展半径 (`spread-radius`)。
+*   **示例**: `text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);`
 
 [通过该网站测试文字阴影](https://html-css-js.com/css/generator/box-shadow/)
 
 ### `letter-spacing` & `word-spacing` - 字符与单词间距
 
-- **`letter-spacing`**：设置字符间的间距。
-- **`word-spacing`**：设置单词间的间距。
-- 默认值均为 `0`，支持设置负值以缩小间距。
+- `letter-spacing`: 设置**字符**间距。
+- `word-spacing`: 设置**单词**间距 (基于空格)。
+- **值**: 可为长度值 (`px`, `em` 等)，支持负值。默认 `0`。
 
 ### `white-space` - 空白处理
 
 定义如何处理元素内的空白符 (空格、制表符、换行符)。
 
-- `normal`：合并空白字符，允许自动换行。
-- `nowrap`：合并空白字符，不允许自动换行。
-- `pre`：保留所有空白 (包括空格和换行)，不自动换行（类似 `<pre>` 标签）。
-- `pre-wrap`: 保留所有空白，但**允许**自动换行。
-- `pre-line`：合并空白字符，但保留换行符，允许自动换行。
+- `normal`: 合并空白，自动换行 (默认)。
+- `nowrap`: 合并空白，**不**自动换行。
+- `pre`: 保留所有空白 (类似 `<pre>`)，不自动换行。
+- `pre-wrap`: 保留所有空白，**允许**自动换行。
+- `pre-line`: 合并空格，保留换行符，允许自动换行。
 
 ### `text-overflow` - 文本溢出处理
 
-指定当文本溢出其**包含元素**时如何显示。**通常用于单行文本**。
+指定当文本溢出其容器时如何显示。**常用于单行文本**。
 
-- `clip`：直接裁剪溢出部分。
-- `ellipsis`：显示省略号（...）。
+- **常用值**:
 
-- **使用条件** (对于 `ellipsis`):
+  *   `clip`: 直接裁剪溢出部分 (默认)。
+  *   `ellipsis`: 显示省略号 (...)。
+- **`ellipsis` 生效条件**:
 
-  1.  元素必须是块级或行内块级。
-  2.  设置 `overflow: hidden;` (隐藏溢出内容)。
-  3.  设置 `white-space: nowrap;` (强制文本不换行)。
+  1.  元素需为块级或行内块级 (`display: block` 或 `inline-block`)。
+  2.  强制不换行: `white-space: nowrap;`
+  3.  隐藏溢出内容: `overflow: hidden;`
 
 - **示例**：单行文本溢出显示省略号：
 
@@ -152,19 +135,11 @@ p {
 
 ## CSS 字体的属性
 
-### `font-size` 
+### `font-size` - 字体大小
 
 - **`font-size`** 设置字体大小，默认值为 `16px`。
 
-- 设置方式
-  
-  - 具体值：如 `20px`。
-  
-  - `em`：相对于父元素字体大小。
-  - `rem`：相对于根元素（`<html>`）字体大小。
-  - 百分比：如 `50%`，基于父元素字体大小。
-  - 视口单位: `vw`, `vh` 等 (相对于视口尺寸)。
-  
+- **常用单位**: `px`, `em` (相对于父元素), `rem` (相对于根元素 `<html>`), `%` (相对于父元素), `vw`/`vh` (视口单位)。
 
 ### `font-family` - 字体族
 
@@ -172,21 +147,23 @@ p {
 
 - 支持多个字体，按顺序尝试，例如 `"Arial", "Helvetica", sans-serif`。
 - 浏览器使用第一个用户设备支持的字体。
-- 建议在字体列表末尾加上通用字体族（如 `serif` 或 `sans-serif`），以确保回退效果。
+- **建议**: 提供多个备选字体，并以通用字体族 (`serif`, `sans-serif`, `monospace`等) 结尾，作为最终回退。
 
 ### `font-weight` - 字体粗细
 
 设置文字的粗细程度。
 
-- 常见取值：
-  - 数值：`100` 至 `900`（`400` 为正常，`700` 为粗体）。
-  - 关键字：`normal`（`400`）、`bold`（`700`）。
+- **常用值**:
+  *   `normal`: 正常 (等同于 `400`)。
+  *   `bold`: 粗体 (等同于 `700`)。
+  *   数值: `100` 到 `900` 的整百数。
+  
+- `<b>`, `<strong>`, `<h1>`-`<h6>` 等标签默认 `font-weight: bold;`。
 
-- `strong`、`b`、`h1~h6` 等标签的 font-weight 默认就是 bold
+### `line-height` - 行高
 
-### line-height
+设置文本行与行之间的基线距离。
 
-- **`line-height`** 设置行高（行间距）。
 - **定义**：
   - 行高是两行文字基线（`baseline`，小写字母 `x` 底部对齐的线）间的距离。
   - 行距 = `line-height` - `font-size`
@@ -208,24 +185,24 @@ p {
 
 ### `font-style`
 
-- `font-style` 控制文本的倾斜样式。
-  - `normal`：正常字体。
-  - `italic`：斜体（依赖于字体是否提供内置斜体样式）。
-  - `oblique`：倾斜，通常为浏览器模拟效果（即使字体不含斜体）。
+设置文本是否倾斜。
+
+*   `normal`: 正常显示。
+*   `italic`: 使用字体的斜体版本 (若字体提供)。
+*   `oblique`: 将正常字体倾斜显示 (浏览器模拟)。
 
 注意：em、i、cite、address、var、dfn 等元素的 font-style 默认就是 `italic`
 
-### `font-variant` - 字体变体
+### `font-variant` - 字体变体 (较少用)
 
-- **`font-variant`** 影响小写字母的显示形式。
-  - `variant` 是变形的意思；
-- 可以设置的值如下
-  - `normal`: 常规显示
-  - `small-caps`: 将小写字母替换为缩小的大写字母
+主要用于显示小型大写字母。
+
+*   `normal`: 正常显示。
+*   `small-caps`: 将小写字母显示为缩小版的大写字母。
 
 ### `font` - 字体缩写属性
 
-- 用于一次性设置多个字体相关属性。**使用时需谨慎**。
+- 用于一次性设置多个字体相关属性。
 
   - **语法 (严格顺序)**:
     `[font-style || font-variant || font-weight]? font-size [/line-height]? font-family`
@@ -236,14 +213,10 @@ p {
   - 其他属性可选且顺序可调。
   - `/line-height` 可以省略, 如果不省略, 必须跟在 `font-size` **后面**
 
-  - **示例**：
+  - **示例**: `font: italic bold 16px/1.5 Arial, sans-serif;`
 
-  ```css
-  p {
-    font: italic 700 16px/1.5 "Arial", sans-serif;
-  }
-  ```
-
+  - **注意**: 使用此缩写会重置未指定的字体属性为其**初始值**。
+  
   > **小技巧**：在网页中，为了视觉效果通常不会使用纯黑色 `#000`，而使用稍柔和的颜色如 `#333`。
 
 ## CSS 背景的属性
@@ -264,7 +237,7 @@ p {
     -   `url('path/to/image.jpg')`: 指定图像路径。
     -   渐变函数: `linear-gradient()`, `radial-gradient()`, `conic-gradient()` 等。
 -   **多背景**: `background-image: url('fg.png'), url('bg.jpg');` (第一个图像在最上层)。
--   **注意**: 元素需要有尺寸 (width/height) 才能显示背景图。背景图默认显示在背景色之上。
+-   **注意**: 元素需要有尺寸 (width/height) 才能显示背景图。
 
 ```css
 div {
@@ -276,14 +249,12 @@ div {
 
 ### `background-repeat` - 背景重复
 
-`background-repeat` 用于定义背景图片是否重复平铺。
+控制背景图片如何平铺。
 
-**取值**：
-
-- `repeat`：水平和垂直方向平铺（默认）。
-- `no-repeat`：不平铺。
-- `repeat-x`：仅水平平铺。
-- `repeat-y`：仅垂直平铺。
+*   `repeat`: 水平垂直平铺 (默认)。
+*   `no-repeat`: 不平铺。
+*   `repeat-x`: 仅水平平铺。
+*   `repeat-y`: 仅垂直平铺。
 
 ![image-20231218192943566](./assets/image-20231218192943566.png)
 
@@ -299,30 +270,14 @@ div {
 
 ### `background-position` - 背景位置
 
-设置背景图像的初始位置。原点默认为 padding box 的左上角。
+设置背景图片的起始位置。原点为 padding-box 左上角。
 
-- **取值**：
+- **值**:
+  *   关键字: `top`, `bottom`, `left`, `right`, `center` (可组合)。
+  *   长度/百分比: 如 `50px 10%` (x y)。 `50% 50%` 使图片中心与容器中心对齐。
+  *   单值: 若只提供一个值，第二个默认为 `center`。
 
-  - 具体值：如 `20px 50px` (距左 距上)。
-
-
-  - 关键字: `top`, `bottom`, `left`, `right`, `center`。可组合使用 (如 `center top`)。
-
-
-  - 百分比：如 `50% 50%`（图片中心对齐元素中心）。
-
-
-- **计算**: 百分比值 `X% Y%` 指的是将图像上 `(X%, Y%)` 的点与容器内 `(X%, Y%)` 的点对齐。
-
-- **单值**: 若只提供一个值，第二个值默认为 `center`。
-
-**示例**：
-
-```css
-div {
-  background-position: center center;
-}
-```
+- **示例**：`background-position: center center;`
 
 ![image-20231218193336079](./assets/image-20231218193336079.png)
 
@@ -330,10 +285,9 @@ div {
 
 决定背景图像是随元素滚动，还是固定在视口中。
 
-- **值**:
-  -   `scroll`: 背景相对于**元素**固定，随页面滚动 (默认)。
-  -   `fixed`: 背景相对于**视口 (viewport)** 固定，不随页面滚动 (创建视差效果)。
-  -   `local`: 背景相对于**元素的内容**固定，如果元素有滚动条，背景会随内容一起滚动。
+*   `scroll`: 背景随元素滚动 (默认)。
+*   `fixed`: 背景相对于视口固定 (常用于视差效果)。
+*   `local`: 背景随元素**内容**滚动 (若元素有滚动条)。
 
 ### `background` - 背景缩写属性
 
@@ -353,27 +307,27 @@ div {
 }
 ```
 
-- 注意若使用 `background-size`，则需要在 `background-position` 后用斜杠（/）分隔。
-- 属性顺序较为灵活，但必须确保 `background-color`、`background-image`、`background-repeat`、`background-attachment` 与 `background-position`（及其后可选的 `/background-size`）能正确解析。
-- **重置**: 与 `font` 类似，使用此缩写会重置未指定的背景属性为其初始值。
+**注意**:
+
+*   `/background-size` 必须在 `background-position` 之后。
+*   使用此缩写会重置未指定的背景属性为其**初始值**。
 
 ### `background-image` vs `<img>` 对比
 
-| **性质**        | **img**           | **background-image** |
-| --------------- | ----------------- | -------------------- |
-| 占用空间        | 是                | 否                   |
-| 右键查看地址    | 是                | 否                   |
-| 支持 CSS Sprite | 否                | 是                   |
-| 搜索引擎收录    | 是（需 alt 属性） | 否                   |
+| 特性        | `<img>`             | `background-image` |
+| ----------- | ------------------- | ------------------ |
+| 语义        | 内容图片 (重要信息) | 装饰性背景         |
+| SEO         | 是 (结合 `alt`)     | 否                 |
+| 占据文档流  | 是                  | 否                 |
+| 可访问性    | 更好 (`alt` 属性)   | 较差               |
+| CSS Sprites | 不直接支持          | 支持               |
+| 打印        | 通常打印            | 可能不打印 (默认)  |
 
-总结
+**建议**: 内容相关的图片使用 `<img>`，装饰性图片使用 `background-image`。
 
-- 装饰性背景通常采用 `background-image`。
-- 内容相关图片建议使用 `<img>` 标签以利于 SEO（同时可使用 `alt` 属性）。
+## `cursor` - 光标样式
 
-## 光标样式 (`cursor`)
-
-设置鼠标指针悬停在元素上时显示的图标样式。
+设置鼠标悬停在元素上时的光标形状。
 
 **常见取值**：
 
@@ -384,9 +338,9 @@ div {
 - `none`：隐藏光标。
 - `url('path/to/cursor.cur'), auto`: 使用自定义光标图像，提供后备。
 
-## 垂直对齐 (`vertical-align`)
+## `vertical-align` - 垂直对齐
 
-`vertical-align` 属性定义 **行内级元素 **或 **行内块级元素** 在一个 **行盒（line box）** 中的垂直对齐方式。
+定义**行内级元素** (`inline`, `inline-block`, 图片等) 在其所在的**行盒 (line box)** 中的垂直对齐方式。**不**适用于块级元素。
 
 基础思考：`div` 的高度从何而来？
 
