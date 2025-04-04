@@ -1,219 +1,130 @@
-### **一、文本相关属性**
-
-1. **`color`**  
-   设置文本的颜色。可以通过颜色名称（如 `red`）、十六进制值（如 `#ff0000`）、RGB 值（如 `rgb(255, 0, 0)`）或 HSL 值（如 `hsl(0, 100%, 50%)`）来定义颜色。
-
-2. **`font-family`**  
-   定义字体族。可以指定多个字体作为备选方案，例如：`font-family: Arial, sans-serif;`。浏览器会按照顺序尝试加载字体，如果第一个字体不可用，则使用下一个。
-
-3. **`font-size`**  
-   设置字体大小。常见的单位包括像素（`px`）、百分比（`%`）、相对单位（`em` 或 `rem`）。例如，`16px` 表示字体高度为 16 像素，而 `1.2em` 表示相对于父元素字体大小的 1.2 倍。
-
-4. **`font-weight`**  
-   设置字体的粗细。常见值有 `normal`（默认值，通常为 400）、`bold`（加粗，通常为 700），也可以直接使用数值（如 `100` 到 `900` 的整数倍）。
-
-5. **`text-align`**  
-   控制文本的对齐方式。可选值包括：
-   - `left`：左对齐（默认值）。
-   - `right`：右对齐。
-   - `center`：居中对齐。
-   - `justify`：两端对齐，使每行的宽度相同。
-
-6. **`text-decoration`**  
-   添加或移除文本装饰效果。常用值包括：
-   - `underline`：添加下划线。
-   - `line-through`：添加删除线。
-   - `overline`：添加上划线。
-   - `none`：移除所有装饰效果。
-
-7. **`text-transform`**  
-   转换文本的大小写。常用值包括：
-   - `uppercase`：将文本转换为大写。
-   - `lowercase`：将文本转换为小写。
-   - `capitalize`：将每个单词的首字母大写。
-
-8. **`line-height`**  
-   设置行间距。可以使用无单位数字（如 `1.5`，表示相对于字体大小的比例）、固定单位（如 `20px`）或百分比（如 `150%`）。
-
-9. **`letter-spacing`**  
-   调整字符之间的间距。正值增加间距，负值减少间距。例如，`letter-spacing: 2px;` 表示每个字符之间增加 2 像素的间距。
-
-10. **`word-spacing`**  
-    调整单词之间的间距。与 `letter-spacing` 类似，但作用于单词间。例如，`word-spacing: 5px;` 表示每个单词之间增加 5 像素的间距。
-
----
-
-### **二、盒模型相关属性**
-
-11. **`width` 和 `height`**  
-    设置元素的宽度和高度。可以使用固定单位（如 `px`）、百分比（如 `50%`）或自动计算（如 `auto`）。需要注意的是，这些值仅适用于内容区域（`content-box`）。
-
-12. **`margin`**  
-    定义元素的外边距，用于控制元素与其他元素之间的距离。可以分别设置四个方向（`margin-top`、`margin-right` 等），或者使用简写形式（如 `margin: 10px 20px;` 表示上下 10px，左右 20px）。
-
-13. **`padding`**  
-    定义元素的内边距，用于控制内容与边框之间的距离。同样支持四个方向的单独设置或简写形式。
-
-14. **`border`**  
-    设置边框样式。完整语法为 `border: [宽度] [样式] [颜色]`，例如 `border: 1px solid black;`。还可以单独设置某一边的边框，如 `border-top`。
-
-15. **`border-radius`**  
-    设置边框的圆角半径。可以使用像素值（如 `10px`）或百分比（如 `50%`，形成圆形）。例如，`border-radius: 50%;` 可以将正方形变成圆形。
-
-16. **`box-sizing`**  
-    控制盒模型的计算方式：
-
-- `content-box`（默认值）：宽度和高度仅包括内容区域。
-- `border-box`：宽度和高度包括内容、内边距和边框。
-
-17. **`display`**  
-    定义元素的显示模式。常见值包括：
-
-- `block`：块级元素，独占一行。
-- `inline`：行内元素，与其他元素共存于同一行。
-- `flex`：弹性布局容器。
-- `grid`：网格布局容器。
-
-18. **`visibility`**  
-    控制元素是否可见。值为 `visible` 时元素正常显示，值为 `hidden` 时元素隐藏但仍占据空间。
-
-19. **`overflow`**  
-    处理内容溢出的情况。常见值包括：
-
-- `hidden`：隐藏溢出的内容。
-- `scroll`：始终显示滚动条。
-- `auto`：仅在内容溢出时显示滚动条。
-
----
-
-### **三、背景与图像相关属性**
-
-21. **`background-color`**  
-    设置背景颜色，类似于 `color` 属性，但作用于元素的背景。
-
-22. **`background-image`**  
-    设置背景图片。例如，`background-image: url('image.jpg');`。
-
-23. **`background-repeat`**  
-    控制背景图片的重复方式。常用值包括：
-
-- `repeat`：水平和垂直方向重复。
-- `no-repeat`：不重复。
-- `repeat-x`：仅水平方向重复。
-- `repeat-y`：仅垂直方向重复。
-
-24. **`background-position`**  
-    定义背景图片的位置。可以使用关键字（如 `top left`）、百分比（如 `50% 50%`）或像素值（如 `10px 20px`）。
-
-25. **`background-size`**  
-    设置背景图片的尺寸。常用值包括：
-
-- `cover`：按比例缩放图片以完全覆盖背景区域。
-- `contain`：按比例缩放图片以完全适应背景区域。
-
-26. **`opacity`**  
-    设置元素的透明度，取值范围为 `0`（完全透明）到 `1`（完全不透明）。例如，`opacity: 0.5;` 表示半透明。
-
-27. **`object-fit`**  
-    控制图片或视频在容器中的适应方式。常用值包括：
-
-- `cover`：按比例缩放以填满容器。
-- `contain`：按比例缩放以适应容器。
-
-28. **`clip-path`**  
-    定义剪裁路径，用于创建复杂的形状。例如，`clip-path: circle(50%);` 可以将元素剪裁为圆形。
-
-29. **`filter`**  
-    应用滤镜效果。常见值包括：
-
-- `blur(5px)`：模糊效果。
-- `grayscale(50%)`：灰度效果。
-- `brightness(150%)`：亮度调整。
-
-30. **`mask`**  
-    使用遮罩效果定义元素的可见区域。例如，`mask-image: linear-gradient(black, transparent);` 可以创建渐变透明效果。
-
----
-
-### **四、布局相关属性**
-
-31. **`position`**  
-    定义元素的定位方式：
-
-- `static`：默认值，元素按照文档流排列。
-- `relative`：相对于自身位置进行偏移。
-- `absolute`：相对于最近的已定位祖先元素进行定位。
-- `fixed`：相对于视口进行定位。
-
-32. **`top`, `right`, `bottom`, `left`**  
-    设置定位偏移量。仅在 `position` 不为 `static` 时生效。
-
-33. **`z-index`**  
-    控制堆叠顺序。数值越大，元素越靠前。
-
-34. **`float`**  
-    设置浮动效果。常见值包括 `left` 和 `right`，用于实现文字环绕图片等效果。
-
-35. **`clear`**  
-    清除浮动的影响。常用值包括 `left`、`right` 和 `both`。
-
-36. **`flex`**  
-    定义弹性盒子子项的属性。例如，`flex: 1;` 表示子项占据剩余空间。
-
-37. **`flex-direction`**  
-    设置主轴方向。常见值包括 `row`（水平方向）和 `column`（垂直方向）。
-
-38. **`justify-content`**  
-    定义主轴上的对齐方式。常见值包括 `center`（居中对齐）、`space-between`（均匀分布）。
-
-39. **`align-items`**  
-    定义交叉轴上的对齐方式。常见值包括 `center`（居中对齐）、`stretch`（拉伸填充）。
-
-40. **`grid-template-columns`**  
-    定义网格布局的列结构。例如，`grid-template-columns: 1fr 2fr 1fr;` 表示三列，宽度比例为 1:2:1。
-
----
-
-### **五、动画与过渡相关属性**
-
-41. **`transition`**  
-    定义过渡效果。完整语法为 `transition: [属性名] [持续时间] [时间函数] [延迟时间]`。例如，`transition: all 0.3s ease-in-out;`。
-
-42. **`animation`**  
-    定义动画效果。完整语法为 `animation: [名称] [持续时间] [时间函数] [延迟时间] [迭代次数] [方向] [填充模式]`。
-
-43. **`transform`**  
-    应用变换效果。常见值包括：
-
-- `rotate(45deg)`：旋转 45 度。
-- `scale(2)`：放大两倍。
-- `translateX(10px)`：沿 X 轴平移 10 像素。
-
-44. **`transform-origin`**  
-    设置变换的原点位置。例如，`transform-origin: top left;` 表示以左上角为原点。
-
-45. **`backface-visibility`**  
-    控制元素背面是否可见。常见值包括 `visible` 和 `hidden`。
-
----
-
-### **六、其他常用属性**
-
-46. **`cursor`**  
-    设置鼠标指针的样式。常见值包括 `pointer`（手型）、`default`（默认箭头）。
-
-47. **`outline`**  
-    定义轮廓线，通常用于表单控件的聚焦状态。例如，`outline: 1px solid red;`。
-
-48. **`list-style`**  
-    定义列表的样式。常见值包括 `disc`（实心圆点）、`circle`（空心圆点）、`none`（无样式）。
-
-49. **`white-space`**  
-    控制空白符的处理方式。常见值包括：
-
-- `nowrap`：禁止换行。
-- `pre`：保留空白符和换行符。
-
-50. **`user-select`**  
-    控制用户是否可以选择文本。常见值包括 `none`（禁止选择）和 `text`（允许选择）。
-
+**核心布局 (Layout)**
+
+1.  **`display`**: 定义元素的显示类型。
+    *   `block`: 块级元素，占据整行。
+    *   `inline`: 行内元素，只占据内容所需宽度。
+    *   `inline-block`: 结合了 `inline` 和 `block` 的特性。
+    *   `flex`: **极其重要**，启用 Flexbox 弹性布局模型，用于一维布局（行或列）。
+    *   `grid`: **极其重要**，启用 Grid 布局模型，用于二维布局（行和列）。
+    *   `none`: 隐藏元素，并且不占据空间。
+    *   `contents`: 元素自身不产生盒子，但其子元素正常渲染（用于改变DOM结构而不影响布局）。
+
+2.  **Flexbox 相关属性 (当 `display: flex` 时)**
+    *   `flex-direction`: 主轴方向 (`row`, `column`, `row-reverse`, `column-reverse`)。
+    *   `justify-content`: 主轴对齐方式 (`flex-start`, `flex-end`, `center`, `space-between`, `space-around`, `space-evenly`)。
+    *   `align-items`: 交叉轴（单行/列）对齐方式 (`stretch`, `flex-start`, `flex-end`, `center`, `baseline`)。
+    *   `align-content`: 交叉轴（多行/列）对齐方式 (`stretch`, `flex-start`, `flex-end`, `center`, `space-between`, `space-around`)。
+    *   `flex-wrap`: 是否换行 (`nowrap`, `wrap`, `wrap-reverse`)。
+    *   `flex-grow`: 放大比例（数字）。
+    *   `flex-shrink`: 缩小比例（数字）。
+    *   `flex-basis`: 元素在主轴上的初始大小 (`auto`, 长度值, 百分比)。
+    *   `flex`: `flex-grow`, `flex-shrink`, `flex-basis` 的简写。
+    *   `gap` (或 `row-gap`, `column-gap`): Flex 项目之间的间距。
+    *   `order`: Flex 项目的排列顺序（数字）。
+    *   `align-self`: 单个 Flex 项目在交叉轴上的对齐方式（覆盖 `align-items`）。
+
+3.  **Grid 布局相关属性 (当 `display: grid` 时)**
+    *   `grid-template-columns`: 定义网格列的轨道（大小、数量）。
+    *   `grid-template-rows`: 定义网格行的轨道。
+    *   `grid-template-areas`: 使用命名区域定义网格布局。
+    *   `gap` (或 `row-gap`, `column-gap`): 网格轨道之间的间距。
+    *   `justify-items`: 网格项沿行轴（内联轴）的对齐方式。
+    *   `align-items`: 网格项沿块轴（列轴）的对齐方式。
+    *   `place-items`: `align-items` 和 `justify-items` 的简写。
+    *   `justify-content`: 网格容器内网格沿行轴的对齐方式（当网格总尺寸小于容器时）。
+    *   `align-content`: 网格容器内网格沿块轴的对齐方式（当网格总尺寸小于容器时）。
+    *   `place-content`: `align-content` 和 `justify-content` 的简写。
+    *   `grid-column-start`, `grid-column-end`, `grid-row-start`, `grid-row-end`: 定义网格项放置的起始/结束线。
+    *   `grid-column`, `grid-row`: 上面四个属性的简写。
+    *   `grid-area`: 定义网格项放置的区域（可以是名称或行列线）。
+
+**盒子模型 (Box Model)**
+
+4.  **`width`, `height`**: 设置元素内容的宽度和高度。
+5.  **`min-width`, `max-width`, `min-height`, `max-height`**: 设置元素的最小/最大宽度和高度。
+6.  **`padding`**: 内边距（元素内容与边框之间）。可分拆为 `padding-top`, `padding-right`, `padding-bottom`, `padding-left`。
+7.  **`margin`**: 外边距（元素边框与相邻元素之间）。可分拆为 `margin-top`, `margin-right`, `margin-bottom`, `margin-left`。
+8.  **`border`**: 边框。可拆分为 `border-width`, `border-style`, `border-color`，也可按方向拆分 (`border-top`, etc.)。
+9.  **`box-sizing`**: **极其重要**，定义 `width` 和 `height` 如何计算。
+    *   `content-box` (默认): `width`/`height` 只包含内容区。
+    *   `border-box`: `width`/`height` 包含内容区、`padding` 和 `border`。现代开发通常全局设为 `border-box`。
+
+**定位 (Positioning)**
+
+10. **`position`**: 元素的定位方案。
+    *   `static` (默认): 正常文档流。
+    *   `relative`: 相对自身原始位置进行偏移，仍占据原始空间。
+    *   `absolute`: 相对于最近的 *已定位* (非 `static`) 祖先元素进行定位，脱离文档流。
+    *   `fixed`: 相对于视口（Viewport）进行定位，脱离文档流。
+    *   `sticky`: 结合了 `relative` 和 `fixed`，在滚动到特定阈值前表现为 `relative`，之后表现为 `fixed`。
+11. **`top`, `right`, `bottom`, `left`**: 当 `position` 不是 `static` 时，用来指定元素的偏移量。
+12. **`z-index`**: 控制已定位元素的堆叠顺序（数值越大越靠上）。
+
+**排版与文本 (Typography & Text)**
+
+13. **`color`**: 文本颜色。
+14. **`font-family`**: 字体族（如 "Arial", sans-serif）。
+15. **`font-size`**: 字体大小（常用 `px`, `em`, `rem`）。
+16. **`font-weight`**: 字体粗细 (`normal`, `bold`, 数值 100-900）。
+17. **`line-height`**: 行高（影响垂直间距）。
+18. **`text-align`**: 文本水平对齐方式 (`left`, `right`, `center`, `justify`)。
+19. **`text-decoration`**: 文本装饰 (`none`, `underline`, `overline`, `line-through`)。
+20. **`text-transform`**: 文本大小写转换 (`none`, `uppercase`, `lowercase`, `capitalize`)。
+21. **`letter-spacing`**: 字符间距。
+22. **`word-spacing`**: 单词间距。
+23. **`white-space`**: 处理元素内的空白符 (`normal`, `nowrap`, `pre`, `pre-wrap`, `pre-line`)。
+24. **`text-overflow`**: 处理溢出的文本 (`clip`, `ellipsis`)，通常配合 `overflow: hidden` 和 `white-space: nowrap` 使用。
+
+**视觉效果 (Visual Effects)**
+
+25. **`background`**: 背景（简写属性）。
+    *   `background-color`: 背景颜色。
+    *   `background-image`: 背景图片 (`url(...)`)。
+    *   `background-repeat`: 背景重复方式 (`no-repeat`, `repeat`, `repeat-x`, `repeat-y`)。
+    *   `background-position`: 背景图片位置。
+    *   `background-size`: 背景图片尺寸 (`auto`, `cover`, `contain`, 长度/百分比)。
+26. **`border-radius`**: 圆角。
+27. **`box-shadow`**: 盒子阴影。
+28. **`opacity`**: 元素的不透明度 (0.0 - 1.0)。
+29. **`visibility`**: 控制元素可见性 (`visible`, `hidden`)。`hidden` 会隐藏元素，但仍占据空间（与 `display: none` 不同）。
+30. **`cursor`**: 鼠标悬停时的光标样式 (`pointer`, `default`, `text`, etc.)。
+31. **`overflow`**: 处理内容溢出元素盒子的情况 (`visible`, `hidden`, `scroll`, `auto`)。可分拆为 `overflow-x`, `overflow-y`。
+32. **`filter`**: 应用图形效果（如 `blur()`, `grayscale()`, `brightness()`, `contrast()` 等）。
+33. **`backdrop-filter`**: 对元素*后面*的区域应用图形效果（常用于毛玻璃效果）。
+34. **`object-fit`**: 规定 `<img>` 或 `<video>` 等替换元素的内容如何适应其容器 (`fill`, `contain`, `cover`, `none`, `scale-down`)。
+35. **`aspect-ratio`**: 设置元素的宽高比，让浏览器自动计算高度或宽度。
+
+**过渡与动画 (Transitions & Animations)**
+
+36. **`transition`**: 定义属性值平滑过渡的效果（简写）。
+    *   `transition-property`: 指定应用过渡的 CSS 属性名称。
+    *   `transition-duration`: 过渡持续时间。
+    *   `transition-timing-function`: 过渡速度曲线 (`linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`, `cubic-bezier(...)`)。
+    *   `transition-delay`: 过渡开始前的延迟时间。
+37. **`animation`**: 应用动画（简写）。
+    *   `animation-name`: 绑定到 `@keyframes` 规则的名称。
+    *   `animation-duration`: 动画持续时间。
+    *   `animation-timing-function`: 动画速度曲线。
+    *   `animation-delay`: 动画开始前的延迟。
+    *   `animation-iteration-count`: 动画播放次数 (`infinite` 表示无限次)。
+    *   `animation-direction`: 动画播放方向 (`normal`, `reverse`, `alternate`, `alternate-reverse`)。
+    *   `animation-fill-mode`: 动画结束后元素的状态 (`none`, `forwards`, `backwards`, `both`)。
+    *   `animation-play-state`: 控制动画播放/暂停 (`running`, `paused`)。
+38. **`@keyframes`**: 定义动画的关键帧。
+
+**其他重要特性**
+
+39. **CSS 变量 (Custom Properties)**:
+    *   `--*`: 定义自定义属性 (e.g., `--main-color: #3498db;`)。
+    *   `var()`: 使用自定义属性 (e.g., `color: var(--main-color);`)。极大提高了 CSS 的可维护性和主题化能力。
+40. **`outline`**: 绘制于元素周围的轮廓线，不影响布局（常用于焦点状态）。
+41. **`list-style`**: 设置列表项标记（`list-style-type`, `list-style-position`, `list-style-image` 的简写）。
+42. **`pointer-events`**: 控制元素是否能成为鼠标事件的目标 (`auto`, `none`)。
+
+**重要概念（非属性，但与属性应用密切相关）**
+
+*   **选择器 (Selectors)**: 如类选择器 (`.class`), ID 选择器 (`#id`), 属性选择器 (`[attr]`), 伪类 (`:hover`, `:focus`, `:nth-child()`), 伪元素 (`::before`, `::after`) 等，决定了样式应用到哪些元素。
+*   **层叠与继承 (Cascade & Inheritance)**: 理解样式如何覆盖以及子元素如何继承父元素样式。
+*   **特殊性/优先级 (Specificity)**: 决定当多个规则应用到同一元素时哪个规则生效。
+*   **响应式设计 (Responsive Design)**: 使用 `@media` 查询根据设备特性（如视口宽度）应用不同样式。
+*   **单位 (Units)**: 理解不同单位的适用场景，如 `px`, `%`, `em`, `rem`, `vw`, `vh`, `fr` (Grid布局)。`rem` 和 `vw/vh` 在现代响应式开发中尤其重要。
