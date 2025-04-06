@@ -1,12 +1,10 @@
 # CSS Grid 网格布局教程
 
-## 一.概述
+## 一、 Grid 布局概述
 
-CSS Grid（网格布局）是现代 CSS 中最强大的布局工具之一。它通过将页面划分为网格单元，允许开发者灵活组合网格，实现复杂而多样化的布局设计。过去依赖繁琐的 CSS 框架或浮动布局才能实现的效果，如今通过浏览器原生支持的 Grid 轻松完成。
+CSS Grid 布局（简称 Grid）是 CSS 中用于**二维布局**的强大系统。它允许开发者将网页内容划分成基于行（Row）与列（Column）的网格结构，并将元素（网格项）精确地放置在网格单元格（Cell）或由多个单元格组成的区域（Area）中。Grid 极大地简化了复杂、非线性的网页布局设计
 
-![CSS Grid布局](./assets/1_bg2019032501.png)
-
-如上图所示，这种多区域、结构化的布局正是 Grid 布局的强项。
+![CSS Grid布局](./assets/1_bg2019032501.png)*(上图展示了 Grid 布局擅长处理的多区域、结构化布局)*
 
 ### Grid 与 Flex 的对比
 
@@ -15,54 +13,37 @@ Grid 布局与 Flex 布局有相似之处，二者均可控制容器内项目的
 - **Flex 布局**：基于轴线（主轴与交叉轴）的一维布局，适合线性排列。
 - **Grid 布局**：基于行与列的二维布局，可精确定义项目的行列位置，功能更为强
 
-## 二.基本概念
+## 二、 Grid 核心概念
 
-### 容器和项目
+* **网格容器 (Grid Container)**：
 
-采用网格布局的区域，称为"容器"（container）。容器内部采用网格定位的子元素，称为"项目"（item）。
+  *   应用了 `display: grid` 或 `display: inline-grid` 的 HTML 元素。
+  *   它是 Grid 布局的上下文，负责定义网格结构（行、列、间距）和控制其内部网格项的默认行为。
 
-```css
-<div class="container">
-    <div class="item"><p>1</p></div>
-    <div class="item"><p>2</p></div>
-    <div class="item"><p>3</p></div>
-</div>
-```
+* **网格项 (Grid Item)**：
 
-```css
-.container {
-    display: grid;
-}
-```
+  *   网格容器的**直接子元素**。
+  *   它们是布局的基本单位，位置和尺寸受网格容器的规则和自身的 Grid 属性控制。
+  *   **注意**：只有直接子元素是网格项。网格项内部的元素不受 Grid 容器直接控制（除非它们自身也成为 Grid 或 Flex 容器）。
+  *   一旦元素成为网格项，其 `float`, `display: inline-block`, `display: table-cell`, `vertical-align` 以及 `column-*` 等属性将**失效**。
 
-在上例中，外层 `<div>` 为容器，三个内层 `<div>` 为项目。
+* **网格线 (Grid Line)**：
 
-注意：项目只能是容器的顶层子元素，不包含项目的子元素，比如上面代码的`<p>`元素就不是项目。Grid 布局只对项目生效。
+  *   构成网格结构的水平和垂直分隔线。它们是定义行、列以及网格项放置位置的基础。
+  *   一个 `n` 行 `m` 列的网格有 `(n + 1)` 条水平网格线和 `(m + 1)` 条垂直网格线。网格线可以从 1 开始编号，也可以被命名。
 
-### 行（Row）与列（Column）
+  ![css grid](./assets/1_bg2019032503.png)
 
-容器里面的水平区域称为"行"（row），垂直区域称为"列"（column）。
+*   **网格轨道 (Grid Track)**：
+    *   两条相邻网格线之间的空间，即**一行**或**一列**。
+*   **网格单元格 (Grid Cell)**：
+    *   由四条相邻网格线（两条水平、两条垂直）围成的最小网格单位，类似于表格中的单元格。
+*   **网格区域 (Grid Area)**：
+    *   由任意四条网格线（不必相邻）包围的矩形区域，可以包含一个或多个网格单元格。网格项可以被放置在一个或多个单元格组成的区域中。
 
-![grid布局的行和列](./assets/1_bg2019032502.png)
+## 三、 网格容器 (Grid Container) 属性
 
-上图中，水平深色区域为行，垂直深色区域为列。
-
-### 单元格（Cell）
-
-- 行与列交叉形成的独立区域称为单元格。
-- `n` 行和 `m` 列产生 `n × m` 个单元格。例如，3 行 3 列生成 9 个单元格。
-
-### 网格线（Grid Line）
-
-划分网格的线，称为"网格线"（grid line）。水平网格线划分出行，垂直网格线划分出列。
-
-对于 `n` 行，有 `n + 1` 根水平网格线；对于 `m` 列，有 `m + 1` 根垂直网格线。例如，3 行对应 4 根水平网格线。
-
-![css grid](./assets/1_bg2019032503.png)
-
-## 三.容器的属性
-
-Grid 布局的属性分为两类：**容器属性**（定义在容器上）和**项目属性**（定义在项目上）。本节重点介绍容器属性。
+这些属性设置在网格容器元素上，用于定义网格的整体结构和行为。
 
 ### `display` 属性
 
@@ -94,8 +75,6 @@ Grid 布局的属性分为两类：**容器属性**（定义在容器上）和**
 ![display: inline-grid](./assets/bg2019032505.png)
 
 上图是`display: inline-grid`的[效果](https://jsbin.com/qatitav/edit?html,css,output)。
-
-> 注意，设为网格布局以后，容器子元素（项目）的`float`、`display: inline-block`、`display: table-cell`、`vertical-align`和`column-*`等设置都将失效。
 
 ### `grid-template-columns` 和 `grid-template-rows`
 
@@ -246,40 +225,35 @@ grid-template-columns: 100px auto 100px;
 grid-template-columns: repeat(12, 1fr);
 ```
 
-### grid-row-gap 属性、grid-column-gap 属性和grid-gap 属性
+### `gap` (及其旧版 `grid-gap`, `row-gap`, `column-gap`): 定义轨道间距
 
-`grid-row-gap`属性设置行与行的间隔（行间距），`grid-column-gap`属性设置列与列的间隔（列间距）。
+用于设置网格线之间的间隙（Gutter）。
+
+*   `row-gap`: 设置行间距。
+*   `column-gap`: 设置列间距。
+*   `gap`: `row-gap` 和 `column-gap` 的简写。`gap: 20px;` (行列间距均为 20px) 或 `gap: 10px 20px;` (行间距 10px，列间距 20px)。
 
 ```css
 .container {
-    grid-row-gap: 20px;
-    grid-column-gap: 20px;
+  /* 推荐使用现代语法 */
+  gap: 15px;
+
+  /* 等同于旧版语法 */
+  /* row-gap: 15px; */
+  /* column-gap: 15px; */
+
+  /* 分别设置 */
+  /* gap: 10px 25px; */
 }
 ```
 
 [上面代码](https://jsbin.com/mezufab/edit?css,output)中，`grid-row-gap`用于设置行间距，`grid-column-gap`用于设置列间距。
 
-![grid-row-gap、grid-column-gap](./assets/bg2019032511.png)
-
-`grid-gap`属性是`grid-column-gap`和`grid-row-gap`的合并简写形式，语法如下。
-
-```css
-grid-gap: <grid-row-gap> <grid-column-gap>;
-```
-
-因此，上面一段 CSS 代码等同于下面的代码。
-
-```css
-.container {
-    grid-gap: 20px 20px;
-}
-```
-
 如果`grid-gap`省略了第二个值，浏览器认为第二个值等于第一个值。
 
 > 根据最新标准，上面三个属性名的`grid-`前缀已经删除，`grid-column-gap`和`grid-row-gap`写成`column-gap`和`row-gap`，`grid-gap`写成`gap`。
 
-### grid-template-areas 属性
+###  `grid-template-areas`: 使用命名区域定义布局
 
 网格布局允许指定"区域"（area），一个区域由单个或多个单元格组成。
 
@@ -714,17 +688,3 @@ place-self: center center;
 ```
 
 如果省略第二个值，`place-self`属性会认为这两个值相等。
-
-## 附：参考资料
-
-- [A Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/), by Chris House
-
-- [Understanding the CSS Grid Layout Module](https://webdesign.tutsplus.com/series/understanding-the-css-grid-layout-module--cms-1079), by Ian Yates
-
-- [How to Build an Off-Canvas Navigation With CSS Grid](https://webdesign.tutsplus.com/tutorials/how-to-build-an-off-canvas-navigation-with-css-grid--cms-28191), Ian Yates
-
-- [Introduction to the CSS Grid Layout With Examples](https://code.tutsplus.com/tutorials/introduction-to-css-grid-layout-with-examples--cms-25392), Dogacan Bilgili
-
-- [Learn CSS Grid](https://learncssgrid.com/), Jonathan Suh
-
-- [How I stopped using Bootstrap's layout thanks to CSS Grid](https://blog.theodo.com/2018/03/stop-using-bootstrap-layout-thanks-to-css-grid/), Cédric Kui
