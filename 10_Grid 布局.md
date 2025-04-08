@@ -1,690 +1,341 @@
-# CSS Grid 网格布局教程
+好的，没问题！作为你的专业笔记优化助手，我会根据你的要求，对这份关于 CSS Grid 布局的笔记进行重写、优化和润色。
 
-## 一、 Grid 布局概述
+**优化后的笔记内容：**
 
-CSS Grid 布局（简称 Grid）是 CSS 中用于**二维布局**的强大系统。它允许开发者将网页内容划分成基于行（Row）与列（Column）的网格结构，并将元素（网格项）精确地放置在网格单元格（Cell）或由多个单元格组成的区域（Area）中。Grid 极大地简化了复杂、非线性的网页布局设计
-
-![CSS Grid布局](./assets/1_bg2019032501.png)*(上图展示了 Grid 布局擅长处理的多区域、结构化布局)*
-
-### Grid 与 Flex 的对比
-
-Grid 布局与 Flex 布局有相似之处，二者均可控制容器内项目的定位。然而，二者的核心区别在于：
-
-- **Flex 布局**：基于轴线（主轴与交叉轴）的一维布局，适合线性排列。
-- **Grid 布局**：基于行与列的二维布局，可精确定义项目的行列位置，功能更为强
-
-## 二、 Grid 核心概念
-
-* **网格容器 (Grid Container)**：
-
-  *   应用了 `display: grid` 或 `display: inline-grid` 的 HTML 元素。
-  *   它是 Grid 布局的上下文，负责定义网格结构（行、列、间距）和控制其内部网格项的默认行为。
-
-* **网格项 (Grid Item)**：
-
-  *   网格容器的**直接子元素**。
-  *   它们是布局的基本单位，位置和尺寸受网格容器的规则和自身的 Grid 属性控制。
-  *   **注意**：只有直接子元素是网格项。网格项内部的元素不受 Grid 容器直接控制（除非它们自身也成为 Grid 或 Flex 容器）。
-  *   一旦元素成为网格项，其 `float`, `display: inline-block`, `display: table-cell`, `vertical-align` 以及 `column-*` 等属性将**失效**。
-
-* **网格线 (Grid Line)**：
-
-  *   构成网格结构的水平和垂直分隔线。它们是定义行、列以及网格项放置位置的基础。
-  *   一个 `n` 行 `m` 列的网格有 `(n + 1)` 条水平网格线和 `(m + 1)` 条垂直网格线。网格线可以从 1 开始编号，也可以被命名。
-
-  ![css grid](./assets/1_bg2019032503.png)
-
-*   **网格轨道 (Grid Track)**：
-    *   两条相邻网格线之间的空间，即**一行**或**一列**。
-*   **网格单元格 (Grid Cell)**：
-    *   由四条相邻网格线（两条水平、两条垂直）围成的最小网格单位，类似于表格中的单元格。
-*   **网格区域 (Grid Area)**：
-    *   由任意四条网格线（不必相邻）包围的矩形区域，可以包含一个或多个网格单元格。网格项可以被放置在一个或多个单元格组成的区域中。
-
-## 三、 网格容器 (Grid Container) 属性
-
-这些属性设置在网格容器元素上，用于定义网格的整体结构和行为。
-
-### `display` 属性
-
-启用网格布局的入口属性：
-
-- **`display: grid`**：容器为块级网格，占据整行宽度。
-- **`display: inline-grid`**：容器为行内网格，与周围内容inline排列。
-
-```css
-.container {
-    display: grid; /* 或 inline-grid */
-}
-```
-
-![display: grid](./assets/bg2019032504.png)
-
-上图是`display: grid`的[效果](https://jsbin.com/guvivum/edit?html,css,output)。
-
-默认情况下，容器元素都是块级元素，但也可以设成行内元素。
-
-```css
-.container {
-  display: inline-grid;
-}
-```
-
-上面代码指定`div`是一个行内元素，该元素内部采用网格布局。
-
-![display: inline-grid](./assets/bg2019032505.png)
-
-上图是`display: inline-grid`的[效果](https://jsbin.com/qatitav/edit?html,css,output)。
-
-### `grid-template-columns` 和 `grid-template-rows`
-
-定义网格的列宽和行高：
-
-- **`grid-template-columns`**：设置每列宽度。
-- **`grid-template-rows`**：设置每行高度。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px;
-}
-```
-
-[上面代码](https://jsbin.com/qiginur/edit?css,output)指定了一个三行三列的网格，列宽和行高都是100px。
-
-![grid-template-columns、grid-template-rows 属性](./assets/bg2019032506.png)
-
-支持单位包括：绝对值（如 `px`）、百分比（如 `33.33%`）等。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: 33.33% 33.33% 33.33%;
-    grid-template-rows: 33.33% 33.33% 33.33%;
-}
-```
-
-#### `repeat()` 函数
-
-有时候，重复写同样的值非常麻烦，尤其网格很多时。这时，可以使用repeat()函数，简化重复的值。上面的代码用repeat()改写如下。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
-    grid-template-rows: repeat(3, 33.33%);
-}
-```
-
-`repeat()`接受两个参数，第一个参数是重复的次数（上例是3），第二个参数是所要重复的值。
-
-`repeat()`重复某种模式也是可以的。
-
-```css
-grid-template-columns: repeat(2, 100px 20px 80px);
-```
-
-[上面代码](https://jsbin.com/cokohu/edit?css,output)定义了6列，第一列和第四列的宽度为100px，第二列和第五列为20px，第三列和第六列为80px。
-
-![repeat()](./assets/bg2019032507.png)
-
-#### `auto-fill` 关键字
-
-有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用`auto-fill`关键字表示自动填充。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 100px);
-}
-```
-
-[上面代码](https://jsbin.com/himoku/edit?css,output)表示每列宽度100px，然后自动填充，直到容器不能放置更多的列。
-![auto-fill](./assets/bg2019032508.png)
-
-####  `fr` 关键字
-
-为了方便表示比例关系，网格布局提供了`fr`关键字（fraction 的缩写，意为"片段"）。如果两列的宽度分别为`1fr`和`2fr`，就表示后者是前者的两倍。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-```
-
-[上面代码](https://jsbin.com/hadexek/edit?html,css,output)表示两个相同宽度的列。
-
-![fr关键字](./assets/1_bg2019032509.png)
-
-`fr`可以与绝对长度的单位结合使用，这时会非常方便。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: 150px 1fr 2fr;
-}
-```
-
-[上面代码](https://jsbin.com/remowec/edit?html,css,output)表示，第一列的宽度为150像素，第二列的宽度是第三列的一半。
-![fr关键字](./assets/bg2019032510.png)
-
-#### `minmax()` 函数
-
-minmax()函数产生一个长度范围，表示长度就在这个范围之中。它接受两个参数，分别为最小值和最大值。
-
-```css
-grid-template-columns: 1fr 1fr minmax(100px, 1fr);
-```
-
-上面代码中，`minmax(100px, 1fr)`表示列宽不小于`100px`，不大于`1fr`。
-
-#### `auto` 关键字
-
-`auto`关键字表示由浏览器自己决定长度。
-
-```css
-grid-template-columns: 100px auto 100px;
-```
-
-上面代码中，第二列的宽度，基本上等于该列单元格的最大宽度，除非单元格内容设置了`min-width`，且这个值大于最大宽度。
-
-#### 网格线的名称
-
-`grid-template-columns`属性和`grid-template-rows`属性里面，还可以使用方括号，指定每一根网格线的名字，方便以后的引用。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: [c1] 100px [c2] 100px [c3] auto [c4];
-    grid-template-rows: [r1] 100px [r2] 100px [r3] auto [r4];
-}
-```
-
-上面代码指定网格布局为3行 x 3列，因此有4根垂直网格线和4根水平网格线。方括号里面依次是这八根线的名字。
-
-网格布局允许同一根线有多个名字，比如`[fifth-line row-5]`。
-
-#### 布局实例
-
-`grid-template-columns`属性对于网页布局非常有用。两栏式布局只需要一行代码。
-
-```css
-.wrapper {
-    display: grid;
-    grid-template-columns: 70% 30%;
-}
-```
-
-上面代码将左边栏设为70%，右边栏设为30%。
-
-传统的十二网格布局，写起来也很容易。
-
-```css
-grid-template-columns: repeat(12, 1fr);
-```
-
-### `gap` (及其旧版 `grid-gap`, `row-gap`, `column-gap`): 定义轨道间距
-
-用于设置网格线之间的间隙（Gutter）。
-
-*   `row-gap`: 设置行间距。
-*   `column-gap`: 设置列间距。
-*   `gap`: `row-gap` 和 `column-gap` 的简写。`gap: 20px;` (行列间距均为 20px) 或 `gap: 10px 20px;` (行间距 10px，列间距 20px)。
-
-```css
-.container {
-  /* 推荐使用现代语法 */
-  gap: 15px;
-
-  /* 等同于旧版语法 */
-  /* row-gap: 15px; */
-  /* column-gap: 15px; */
-
-  /* 分别设置 */
-  /* gap: 10px 25px; */
-}
-```
-
-[上面代码](https://jsbin.com/mezufab/edit?css,output)中，`grid-row-gap`用于设置行间距，`grid-column-gap`用于设置列间距。
-
-如果`grid-gap`省略了第二个值，浏览器认为第二个值等于第一个值。
-
-> 根据最新标准，上面三个属性名的`grid-`前缀已经删除，`grid-column-gap`和`grid-row-gap`写成`column-gap`和`row-gap`，`grid-gap`写成`gap`。
-
-###  `grid-template-areas`: 使用命名区域定义布局
-
-网格布局允许指定"区域"（area），一个区域由单个或多个单元格组成。
-
-`grid-template-areas`属性用于定义区域。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px;
-    grid-template-areas: 'a b c'
-                        'd e f'
-                        'g h i';
-}
-```
-
-上面代码先划分出9个单元格，然后将其定名为`a`到`i`的九个区域，分别对应这九个单元格。
-
-多个单元格合并成一个区域的写法如下。
-
-```css
-grid-template-areas: 'a a a'
-                     'b b b'
-                     'c c c';
-```
-
-上面代码将9个单元格分成a、b、c三个区域。
-
-下面是一个布局实例。
-
-```css
-grid-template-areas: "header header header"
-                     "main main sidebar"
-                     "footer footer footer";
-```
-
-上面代码中，顶部是页眉区域`header`，底部是页脚区域`footer`，中间部分则为`main`和`sidebar`。
-
-如果某些区域不需要利用，则使用"点"（`.`）表示。
-
-```css
-grid-template-areas: 'a . c'
-                     'd . f'
-                     'g . i';
-```
-
-上面代码中，中间一列为点，表示没有用到该单元格，或者该单元格不属于任何区域。
-
-> 注意，区域的命名会影响到网格线。每个区域的起始网格线，会自动命名为`区域名-start`，终止网格线自动命名为`区域名-end`。
-> 比如，区域名为`header`，则起始位置的水平网格线和垂直网格线叫做`header-start`，终止位置的水平网格线和垂直网格线叫做`header-end`。
-
-### grid-auto-flow 属性
-
-划分网格以后，容器的子元素会按照顺序，自动放置在每一个网格。默认的放置顺序是"先行后列"，即先填满第一行，再开始放入第二行，即下图数字的顺序。
-
-![grid-auto-flow](./assets/bg2019032506.png)
-
-这个顺序由`grid-auto-flow`属性决定，默认值是`row`，即"先行后列"。也可以将它设成`column`，变成"先列后行"。
-
-[上面代码](https://jsbin.com/xutokec/edit?css,output)设置了`column`以后，放置顺序就变成了下图。
-
-![grid-auto-flow](./assets/bg2019032512.png)
-
-`grid-auto-flow`属性除了设置成`row`和`column`，还可以设成`row dense`和`column dense`。这两个值主要用于，某些项目指定位置以后，剩下的项目怎么自动放置。
-
-[下面的例子](https://jsbin.com/muyigopasu/edit?css,output)让1号项目和2号项目各占据两个单元格，然后在默认的`grid-auto-flow: row`情况下，会产生下面这样的布局。
-
-![grid-auto-flow: row](./assets/bg2019032513.png)
-
-上图中，1号项目后面的位置是空的，这是因为3号项目默认跟着2号项目，所以会排在2号项目后面。
-
-现在修改设置，设为`row dense`，表示"先行后列"，并且尽可能紧密填满，尽量不出现空格。
-
-```css
-grid-auto-flow: row dense;
-```
-
-[上面代码](https://jsbin.com/helewuy/edit?css,output)的效果如下。
-
-![grid-auto-flow: row dense](./assets/bg2019032514.png)
-
-上图会先填满第一行，再填满第二行，所以3号项目就会紧跟在1号项目的后面。8号项目和9号项目就会排到第四行。
-
-如果将设置改为`column dense`，表示"先列后行"，并且尽量填满空格。
-
-```css
-grid-auto-flow: column dense;
-```
-
-上面代码的效果如下。
-
-![grid-auto-flow: column dense;](./assets/bg2019032515.png)
-
-上图会先填满第一列，再填满第2列，所以3号项目在第一列，4号项目在第二列。8号项目和9号项目被挤到了第四列。
-
-### justify-items 属性、align-items 属性和 place-items 属性
-
-`justify-items`属性设置单元格内容的水平位置（左中右），`align-items`属性设置单元格内容的垂直位置（上中下）。
-
-```css
-.container {
-    justify-items: start | end | center | stretch;
-    align-items: start | end | center | stretch;
-}
-```
-
-这两个属性的写法完全相同，都可以取下面这些值。
-
-- start：对齐单元格的起始边缘。
-- end：对齐单元格的结束边缘。
-- center：单元格内部居中。
-- stretch：拉伸，占满单元格的整个宽度（默认值）。
-
-```css
-.container {
-    justify-items: start;
-}
-```
-
-[上面代码](https://jsbin.com/gijeqej/edit?css,output)表示，单元格的内容左对齐，效果如下图。
-
-![justify-items: start;](./assets/bg2019032516.png)
-
-```css
-.container {
-    align-items: start;
-}
-```
-
-[上面代码](https://jsbin.com/tecawur/edit?css,output)表示，单元格的内容头部对齐，效果如下图。
-
-`place-items`属性是`align-items`属性和`justify-items`属性的合并简写形式。
-
-```css
-place-items: <align-items> <justify-items>;
-```
-
-下面是一个例子。
-
-```css
-place-items: start end;
-```
-
-如果省略第二个值，则浏览器认为与第一个值相等。
-
-### justify-content 属性、align-content 属性和place-content 属性
-
-`justify-content`属性是整个内容区域在容器里面的水平位置（左中右），`align-content`属性是整个内容区域的垂直位置（上中下）。
-
-```css
-.container {
-    justify-content: start | end | center | stretch | space-around | space-between | space-evenly;
-    align-content: start | end | center | stretch | space-around | space-between | space-evenly;  
-}
-```
-
-这两个属性的写法完全相同，都可以取下面这些值。（下面的图都以`justify-content`属性为例，`align-content`属性的图完全一样，只是将水平方向改成垂直方向。）
-
-- start - 对齐容器的起始边框。
-
-![start](./assets/bg2019032519.png)
-
-- end - 对齐容器的结束边框。
-
-![end](./assets/bg2019032518.png)
-
-- center - 容器内部居中。
-
-![center](./assets/bg2019032520.png)
-
-- stretch - 项目大小没有指定时，拉伸占据整个网格容器。
-
-![stretch](./assets/bg2019032521.png)
-
-- space-around - 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与容器边框的间隔大一倍。
-
-![space-around](./assets/bg2019032522.png)
-
-- space-between - 项目与项目的间隔相等，项目与容器边框之间没有间隔。
-
-![space-between](./assets/bg2019032523.png)
-
-- space-evenly - 项目与项目的间隔相等，项目与容器边框之间也是同样长度的间隔。
-
-![space-evenly](./assets/bg2019032524.png)
-
-`place-content`属性是`align-content`属性和`justify-content`属性的合并简写形式。
-
-```css
-place-content: <align-content> <justify-content>
-```
-
-下面是一个例子。
-
-```css
-place-content: space-around space-evenly;
-```
-
-如果省略第二个值，浏览器就会假定第二个值等于第一个值。
-
-### grid-auto-columns 属性和grid-auto-rows 属性
-
-有时候，一些项目的指定位置，在现有网格的外部。比如网格只有3列，但是某一个项目指定在第5行。这时，浏览器会自动生成多余的网格，以便放置项目。
-
-`grid-auto-columns`属性和`grid-auto-rows`属性用来设置，浏览器自动创建的多余网格的列宽和行高。它们的写法与`grid-template-columns`和`grid-template-rows`完全相同。如果不指定这两个属性，浏览器完全根据单元格内容的大小，决定新增网格的列宽和行高。
-
-[下面的例子](https://jsbin.com/sayuric/edit?css,output)里面，划分好的网格是3行 x 3列，但是，8号项目指定在第4行，9号项目指定在第5行。
-
-```css
-.container {
-    display: grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px;
-    grid-auto-rows: 50px; 
-}
-```
-
-上面代码指定新增的行高统一为50px（原始的行高为100px）。
-
-![grid-auto-rows](./assets/bg2019032525.png)
-
-### grid-template 属性和grid 属性
-
-`grid-template`属性是`grid-template-columns`、`grid-template-rows`和`grid-template-areas`这三个属性的合并简写形式。
-
-`grid`属性是`grid-template-rows`、`grid-template-columns`、`grid-template-areas`、 `grid-auto-rows`、`grid-auto-columns`、`grid-auto-flow`这六个属性的合并简写形式。
-
-从易读易写的角度考虑，还是建议不要合并属性，所以这里就不详细介绍这两个属性了。
-
-## 四.项目属性
-
-下面这些属性定义在项目上面。
-
-### grid-column-start 属性、grid-column-end 属性、grid-row-start 属性、grid-row-end 属性
-
-项目的位置是可以指定的，具体方法就是指定项目的四个边框，分别定位在哪根网格线。
-
-- grid-column-start属性：左边框所在的垂直网格线
-- grid-column-end属性：右边框所在的垂直网格线
-- grid-row-start属性：上边框所在的水平网格线
-- grid-row-end属性：下边框所在的水平网格线
-
-```css
-.item-1 {
-    grid-column-start: 2;
-    grid-column-end: 4;
-}
-```
-
-[上面代码](https://jsbin.com/yukobuf/edit?css,output)指定，1号项目的左边框是第二根垂直网格线，右边框是第四根垂直网格线。
-
-上图中，只指定了1号项目的左右边框，没有指定上下边框，所以会采用默认位置，即上边框是第一根水平网格线，下边框是第二根水平网格线。
-
-除了1号项目以外，其他项目都没有指定位置，由浏览器自动布局，这时它们的位置由容器的`grid-auto-flow`属性决定，这个属性的默认值是`row`，因此会"先行后列"进行排列。读者可以把这个属性的值分别改成`column`、`row dense`和`column dense`，看看其他项目的位置发生了怎样的变化。
-
-[下面的例子](https://jsbin.com/nagobey/edit?html,css,output)是指定四个边框位置的效果。
-
-```css
-.item-1 {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 4;
-}
-```
-
-![grid布局](./assets/bg2019032527.png)
-
-这四个属性的值，除了指定为第几个网格线，还可以指定为网格线的名字。
-
-```css
-.item-1 {
-    grid-column-start: header-start;
-    grid-column-end: header-end;
-}
-```
-
-上面代码中，左边框和右边框的位置，都指定为网格线的名字。
-
-这四个属性的值还可以使用`span`关键字，表示"跨越"，即左右边框（上下边框）之间跨越多少个网格。
-
-```css
-.item-1 {
-    grid-column-start: span 2;
-}
-```
-
-[上面代码](https://jsbin.com/hehumay/edit?html,css,output)表示，1号项目的左边框距离右边框跨越2个网格。
-
-![grid-column-start: span 2](./assets/bg2019032528.png)
-
-这与[下面的代码](https://jsbin.com/mujihib/edit?html,css,output)效果完全一样。
-
-```css
-.item-1 {
-    grid-column-end: span 2;
-}
-```
-
-使用这四个属性，如果产生了项目的重叠，则使用`z-index`属性指定项目的重叠顺序。
-
-### grid-column 属性、grid-row 属性
-
-`grid-column`属性是`grid-column-start`和`grid-column-end`的合并简写形式，`grid-row`属性是`grid-row-start`属性和`grid-row-end`的合并简写形式。
-
-```css
-.item {
-    grid-column: <start-line> / <end-line>;
-    grid-row: <start-line> / <end-line>;
-}
-```
-
-下面是一个例子。
-
-```css
-.item-1 {
-    grid-column: 1 / 3;
-    grid-row: 1 / 2;
-}
-/* 等同于 */
-.item-1 {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 2;
-}
-```
-
-上面代码中，项目`item-1`占据第一行，从第一根列线到第三根列线。
-
-这两个属性之中，也可以使用`span`关键字，表示跨越多少个网格。
-
-```css
-.item-1 {
-    background: #b03532;
-    grid-column: 1 / 3;
-    grid-row: 1 / 3;
-}
-/* 等同于 */
-.item-1 {
-    background: #b03532;
-    grid-column: 1 / span 2;
-    grid-row: 1 / span 2;
-}
-```
-
-[上面代码](https://jsbin.com/volugow/edit?html,css,output)中，项目item-1占据的区域，包括第一行 + 第二行、第一列 + 第二列。
-
-![grid-column、grid-row](./assets/bg2019032529.png)
-
-斜杠以及后面的部分可以省略，默认跨越一个网格。
-
-```css
-.item-1 {
-    grid-column: 1;
-    grid-row: 1;
-}
-```
-
-上面代码中，项目`item-1`占据左上角第一个网格。
-
-### grid-area 属性
-
-`grid-area`属性指定项目放在哪一个区域。
-
-```css
-.item-1 {
-    grid-area: e;
-}
-```
-
-[上面代码](https://jsbin.com/qokexob/edit?css,output)中，1号项目位于e区域，效果如下图。
-
-![grid-are](./assets/bg2019032530.png)
-
-`grid-area`属性还可用作`grid-row-start`、`grid-column-start`、`grid-row-end`、`grid-column-end`的合并简写形式，直接指定项目的位置。
-
-```css
-.item {
-    grid-area: <row-start> / <column-start> / <row-end> / <column-end>;
-}
-```
-
-下面是一个[例子](https://jsbin.com/duyafez/edit?css,output)。
-
-```css
-.item-1 {
-    grid-area: 1 / 1 / 3 / 3;
-}
-```
-
-### justify-self 属性、align-self 属性、place-self 属性
-
-`justify-self`属性设置单元格内容的水平位置（左中右），跟`justify-items`属性的用法完全一致，但只作用于单个项目。
-
-`align-self`属性设置单元格内容的垂直位置（上中下），跟`align-items`属性的用法完全一致，也是只作用于单个项目。
-
-```css
-.item {
-    justify-self: start | end | center | stretch;
-    align-self: start | end | center | stretch;
-}
-```
-
-这两个属性都可以取下面四个值。
-
-- start：对齐单元格的起始边缘。
-- end：对齐单元格的结束边缘。
-- center：单元格内部居中。
-- stretch：拉伸，占满单元格的整个宽度（默认值）。
-
-下面是justify-self: start的例子。
-
-```css
-.item-1  {
-    justify-self: start;
-}
-```
-
-![justify-self: start](./assets/bg2019032532.png)
-
-`place-self`属性是`align-self`属性和`justify-self`属性的合并简写形式。
-
-```css
-place-self: <align-self> <justify-self>;
-```
-
-下面是一个例子。
-
-```css
-place-self: center center;
-```
-
-如果省略第二个值，`place-self`属性会认为这两个值相等。
+---
+
+# CSS Grid 布局：精要指南
+
+## 一、Grid 布局核心概念
+
+### 1.1 什么是 CSS Grid 布局？
+
+CSS Grid 布局（简称 Grid）是 CSS 中用于创建**二维 (2D) 网页布局**的革命性系统。它允许开发者将网页空间划分为基于**行 (Rows)** 和**列 (Columns)** 的网格结构。通过 Grid，你可以极其精确和灵活地控制**网格项 (Grid Items)** 在预定义的**网格单元格 (Cells)** 或**网格区域 (Areas)** 中的定位和尺寸。
+
+-   **核心优势**：提供对页面主要布局结构或复杂组件内部布局的强大控制力。
+
+-   **对比 Flexbox**：
+    -   **Flexbox**：主要用于**一维 (1D)** 布局，擅长沿单轴（行 *或* 列）排列、对齐和分配空间，非常适合导航栏、按钮组或项目列表等。
+    -   **Grid**：专注于**二维 (2D)** 布局，同时控制行和列，是构建整体页面骨架（如页眉、侧边栏、主内容区、页脚）或复杂模块网格的理想选择。
+    -   **协同工作**：Grid 和 Flexbox 并非互斥，而是**互补**的。常将 Grid 用于宏观布局，Flexbox 用于 Grid 区域内部元素的微观布局。
+
+### 1.2 关键术语解析
+
+![Diagram illustrating Grid Container, Items, Lines, Tracks, Cells, and Areas](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout/grid_anatomy.svg)  
+*(注：此处替换为通用概念图描述，原本地图片无法显示)*
+
+1.  **网格容器 (Grid Container)**
+    *   **定义**: 应用了 `display: grid` 或 `display: inline-grid` 样式的父元素。
+    *   **作用**: 定义网格的结构（行/列数量、尺寸、间距），并管理其直接子元素的布局。
+    *   **创建**:
+        *   `display: grid;`: 创建块级网格容器，占据其父元素的整行宽度。
+        *   `display: inline-grid;`: 创建行内级网格容器，其行为类似行内块元素，可与其他行内内容并排。
+
+2.  **网格项 (Grid Item)**
+    *   **定义**: 网格容器的**直接子元素**。
+    *   **特性**:
+        *   自动成为 Grid 布局上下文的一部分。
+        *   即使是 `<span>` 等行内元素，在 Grid 中也会表现得像块级元素（可设置宽高、内外边距）。
+        *   以下 CSS 属性对其**失效**: `float`, `clear`, `vertical-align`, `display: inline-block/table-cell`, 以及所有 `column-*` 属性。布局完全由 Grid 属性控制。
+
+3.  **网格线 (Grid Line)**
+    *   **定义**: 构成网格结构的水平和垂直分割线。
+    *   **编号**: 水平和垂直方向的网格线都从 `1` 开始编号。负数索引从末尾开始计算 (`-1` 表示最后一条线)。
+    *   **命名**: 可以在定义网格时为网格线指定自定义名称，便于引用。
+    *   **数量**: 一个 `N` 行 `M` 列的网格有 `N+1` 条水平线和 `M+1` 条垂直线。
+
+4.  **网格轨道 (Grid Track)**
+    *   **定义**: 两条相邻**平行**网格线之间的空间，即**一行**或**一列**。
+
+5.  **网格单元格 (Grid Cell)**
+    *   **定义**: 由四条相邻（两条水平、两条垂直）网格线围成的**最小网格单位**。网格项默认放置在此类单元格中。
+
+6.  **网格区域 (Grid Area)**
+    *   **定义**: 由任意**四条指定的网格线**（不一定相邻）包围的**矩形区域**。一个区域可以跨越多个单元格，用于容纳单个网格项或定义布局模板。
+
+## 二、Grid 属性分类概览
+
+Grid 布局属性主要分为两类：
+
+1.  **容器属性 (Container Properties)**：设置在 Grid Container 上，用于定义网格的整体结构、间距、对齐方式以及隐式网格的行为。
+2.  **项目属性 (Item Properties)**：设置在 Grid Item 上，用于控制单个子项在网格中的具体位置、跨度、对齐方式和层叠顺序。
+
+## 三、Grid 容器 (Container) 属性详解
+
+### 3.1 定义显式网格结构
+
+#### `grid-template-columns` & `grid-template-rows`
+
+-   **作用**: 定义网格的**列**和**行**的数量及其尺寸（轨道大小）。
+-   **语法**: 空格分隔的值列表，每个值定义一个轨道的大小。
+-   **常用值**:
+    -   **固定单位**: `px`, `em`, `rem` 等。
+    -   **百分比**: `%` (相对于网格容器的**内容框**尺寸)。
+    -   **`auto`**: 轨道尺寸由其内容或可用空间决定，通常是内容的最大宽度/高度。
+    -   **`fr` (Fraction Unit)**: **核心单位**。代表网格容器中**可用空间**的一等份。用于创建按比例分配空间的弹性布局。例如 `1fr 2fr` 表示将可用宽度按 1:2 分配给两列。
+    -   **`minmax(min, max)`**: 定义轨道的尺寸范围，确保其不小于 `min` 且不大于 `max`。`max` 值可以是 `fr` 单位，如 `minmax(100px, 1fr)`（最小 100px，最大可弹性增长）。
+    -   **`repeat(count, tracks)`**: 重复定义轨道模式。
+        -   `repeat(3, 100px)` 相当于 `100px 100px 100px`。
+        -   **`repeat(auto-fill | auto-fit, minmax(min, max))`**: **响应式布局神器**。
+            -   `auto-fill`: 在容器中尽可能多地填充轨道，即使空间不足以容纳新内容的最小尺寸，也会创建空的轨道。
+            -   `auto-fit`: 类似 `auto-fill`，但会将所有空的轨道折叠为零宽度/高度，让已有轨道扩展以填充剩余空间。
+            -   常与 `minmax()` 结合，如 `repeat(auto-fit, minmax(200px, 1fr))` 创建自适应列布局，每列最小 200px，并均分剩余空间。
+    -   **`fit-content(limit)`**: 轨道尺寸适应内容，但最大不超过 `limit` 值。
+
+-   **示例**:
+    ```css
+    .container {
+      display: grid;
+      /* 3列: 固定150px | 最小100px、最大弹性1fr | 弹性2fr */
+      grid-template-columns: 150px minmax(100px, 1fr) 2fr;
+      /* 2行: 内容自适应高 | 固定50px */
+      grid-template-rows: auto 50px;
+    }
+    ```
+
+#### `grid-template-areas`
+
+-   **作用**: 提供一种**可视化、命名化**的方式来定义网格布局结构，并将网格项映射到指定区域。
+-   **工作流程**:
+    1.  **命名网格项**: 为需要放置的 Grid Item 设置 `grid-area: <自定义名称>;`。
+    2.  **定义容器区域**: 在 Grid Container 上使用 `grid-template-areas`，其值为用**引号包裹**的字符串列表。
+        -   每个字符串代表**一行**网格布局。
+        -   字符串内用**空格分隔**的名称定义了该行各列分配给哪个区域。
+        -   使用 **`.`** (英文句点) 表示该单元格为**空**，不属于任何命名区域。
+-   **核心规则**:
+    -   同一名称定义的所有单元格必须形成一个**连续的矩形**。
+    -   每个字符串（行）中的名称/`.`数量必须与定义的**列数**严格相等。
+-   **示例 (经典布局)**:
+    ```css
+    .page-layout {
+      display: grid;
+      width: 100%;
+      height: 100vh; /* 假设占满视口 */
+      grid-template-columns: 200px 1fr; /* 侧边栏固定，主区域弹性 */
+      grid-template-rows: 60px 1fr 80px; /* 页眉、内容区、页脚高度 */
+      grid-template-areas:
+        "header  header"
+        "sidebar main"
+        "footer  footer";
+      gap: 10px; /* 添加间距 */
+    }
+    
+    .page-header { grid-area: header; }
+    .page-sidebar { grid-area: sidebar; }
+    .main-content { grid-area: main; }
+    .page-footer { grid-area: footer; }
+    ```
+
+#### `grid-template` (简写属性)
+
+-   **作用**: `grid-template-rows`, `grid-template-columns`, 和 `grid-template-areas` 的合并简写。
+-   **语法**: 复杂，可组合多种定义方式。例如:
+    `grid-template: [row1-start] "header header" 60px [row1-end] / auto 1fr;`
+-   **建议**: 虽然强大，但为了代码的**可读性和可维护性**，**强烈推荐**分别使用 `grid-template-rows`, `grid-template-columns`, 和 `grid-template-areas`。
+
+### 3.2 定义隐式网格与自动放置
+
+-   **何时产生隐式网格?**
+    -   当实际 Grid Item 数量超出显式定义的网格单元格（由 `grid-template-*` 定义）。
+    -   当 Grid Item 通过 `grid-column/row` 被放置到显式网格范围之外。
+
+#### `grid-auto-columns` & `grid-auto-rows`
+
+-   **作用**: 定义自动创建的（隐式）列和行的尺寸。
+-   **默认值**: `auto` (尺寸由内容决定)。
+-   **示例**:
+    ```css
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 显式定义 3 列 */
+      /* 没有显式定义行，所有行都是隐式的 */
+      grid-auto-rows: minmax(100px, auto); /* 隐式行最小高 100px，可随内容增长 */
+      gap: 15px;
+    }
+    /* 若有 4 个子项，第四项会出现在第二行，行高由 grid-auto-rows 控制 */
+    ```
+
+#### `grid-auto-flow`
+
+-   **作用**: 控制**没有**通过 `grid-column/row/area` 指定位置的 Grid Items 的自动排列方式。
+-   **取值**:
+    -   `row` (默认): 按**行**优先填充，填满一行后换下一行。
+    -   `column`: 按**列**优先填充，填满一列后换下一列。
+    -   `dense`: "密集"填充算法。浏览器会尝试将较小的项放入网格中较早出现的空白区域，可能**打乱 DOM 顺序**的视觉呈现，需谨慎使用。
+
+### 3.3 定义网格间距 (Gutters)
+
+#### `gap`, `row-gap`, `column-gap`
+
+-   **作用**: 设置网格线之间的间距（沟槽）。
+-   **语法**:
+    -   `gap: <row-gap> <column-gap>;` (提供两个值)
+    -   `gap: <value>;` (行、列间距相同)
+    -   `row-gap: <value>;` (仅行间距)
+    -   `column-gap: <value>;` (仅列间距)
+    -   *注：`grid-gap`, `grid-row-gap`, `grid-column-gap` 是旧语法，推荐使用无 `grid-` 前缀的新语法。*
+-   **值**: 长度值 (`px`, `em`, `%`)。
+-   **关键优势**:
+    -   间距**仅存在于轨道之间**，不会在网格容器边缘产生多余间距。
+    -   比传统 `margin` 布局更简洁，完美避免外边距合并和处理首尾元素边距的复杂性。
+
+### 3.4 对齐网格轨道 (Aligning Tracks)
+
+-   **适用场景**: 当网格的总尺寸（所有轨道尺寸 + 所有间距）**小于**其 Grid 容器尺寸时。
+-   **作用**: 控制**整个网格轨道结构**作为一个整体，在容器内的对齐方式。
+
+#### `justify-content` (沿行轴/水平方向)
+
+-   `start`, `end`, `center`, `stretch`, `space-between`, `space-around`, `space-evenly`
+
+#### `align-content` (沿列轴/垂直方向)
+
+-   `start`, `end`, `center`, `stretch`, `space-between`, `space-around`, `space-evenly`
+
+#### `place-content` (简写)
+
+-   `place-content: <align-content> <justify-content>;` (若只提供一个值，则两方向相同)。
+
+### 3.5 对齐网格项 (Aligning Items)
+
+-   **作用**: 设置网格容器内**所有 Grid Items** 在其各自被分配到的 Grid Area (通常是单元格) 内的**默认**对齐方式。
+
+#### `justify-items` (项在其区域内的行轴/水平对齐)
+
+-   `start`: 靠区域左侧。
+-   `end`: 靠区域右侧。
+-   `center`: 在区域内水平居中。
+-   `stretch` (默认): 拉伸填满区域宽度 (若项目未设置固定宽度)。
+
+#### `align-items` (项在其区域内的列轴/垂直对齐)
+
+-   `start`: 靠区域顶部。
+-   `end`: 靠区域底部。
+-   `center`: 在区域内垂直居中。
+-   `stretch` (默认): 拉伸填满区域高度 (若项目未设置固定高度)。
+-   `baseline`: 按项目内容的基线对齐。
+
+#### `place-items` (简写)
+
+-   `place-items: <align-items> <justify-items>;` (若只提供一个值，则两方向相同)。
+    -   例如 `place-items: center;` 使所有项在其区域内水平和垂直居中。
+
+## 四、Grid 项目 (Item) 属性详解
+
+设置在 Grid Item (子元素) 上，用于精细控制单个项目。
+
+### 4.1 定位与跨度
+
+#### `grid-column-start`, `grid-column-end`, `grid-row-start`, `grid-row-end`
+
+-   **作用**: 通过指定起始和结束的**网格线**，精确定义 Grid Item 在网格中的位置和所占的范围。
+-   **值**:
+    -   **数字**: 网格线编号 (1-based，负数从末尾算起，`-1` 是最后一条线)。
+    -   **名称**: 使用在 `grid-template-columns/rows` 中定义的网格线名称。
+    -   **`span <number>`**: 表示项目从起始线开始，跨越指定数量的轨道。
+    -   **`span <name>`**: 表示项目从起始线开始，跨越到指定名称的网格线。
+    -   **`auto`**: 由 Grid 自动放置算法决定。
+
+#### `grid-column` & `grid-row` (简写)
+
+-   **作用**: 分别是列和行定位属性的简写。
+-   **语法**: `<start-line> / <end-line>`。
+    -   如果只提供 `<start-line>`，则 `end-line` 默认为 `auto` (通常只占一个轨道) 或 `span 1`。
+    -   可以使用 `span` 关键字，如 `grid-column: span 3;` (跨 3 列)，`grid-row: 2 / span 2;` (从第 2 行开始，跨 2 行)。
+-   **示例**:
+    ```css
+    .item-highlight {
+      /* 从第 2 列线跨到第 4 列线 (占据第 2, 3 列) */
+      grid-column: 2 / 4;
+      /* 从第 1 行线开始，跨越 2 行 (占据第 1, 2 行) */
+      grid-row: 1 / span 2;
+    }
+    ```
+
+#### `grid-area`
+
+-   **多功能属性**:
+    1.  **引用命名区域**: `grid-area: <name>;` 将项目放置到 `grid-template-areas` 定义的同名区域。**这是最直观、最推荐的用法之一**。
+    2.  **定位简写**: `grid-area: <row-start> / <column-start> / <row-end> / <column-end>;` 一次性指定四条边界网格线。
+-   **示例**:
+    ```css
+    /* 引用命名区域 (接 3.1.2 示例) */
+    .page-header { grid-area: header; }
+    
+    /* 定位简写 */
+    .special-item {
+      /* 放置在从第 2 行第 1 列 到 第 4 行第 3 列 的区域 */
+      grid-area: 2 / 1 / 4 / 3;
+    }
+    ```
+
+### 4.2 单项对齐 (覆盖容器设置)
+
+#### `justify-self` & `align-self`
+
+-   **作用**: 允许**单个** Grid Item 覆盖其容器通过 `justify-items` 和 `align-items` 设置的**默认**对齐方式。
+-   **默认值**: `auto`，继承自容器的 `justify-items / align-items` 值 (通常是 `stretch`)。
+-   **值**: 与 `justify-items / align-items` 相同 (`start`, `end`, `center`, `stretch`, `baseline` [仅 `align-self`])，外加 `auto`。
+-   **示例**: 若容器设置 `align-items: stretch;`，但某个重要项目需要居中，则设置 `align-self: center;`。
+
+#### `place-self` (简写)
+
+-   `place-self: <align-self> <justify-self>;` (若只提供一个值，则两方向相同)。
+
+### 4.3 调整顺序
+
+#### `order`
+
+-   **作用**: (与 Flexbox 类似) 影响**自动布局**的 Grid Items 的排列顺序。数值越小，越靠前。
+-   **注意**: 在 Grid 中，`order` 主要影响自动放置流中的顺序。它**不能**像 `grid-column/row/area` 那样精确地将项放置到任意二维位置。对于复杂的定位，应优先使用显式放置属性。过度依赖 `order` 可能降低布局的可预测性和可访问性。
+
+## 五、关键优势与实用技巧总结
+
+1.  **真正的二维布局**: 同时掌控行与列，完美胜任页面级布局和复杂模块。
+2.  **`fr` 单位**: 实现强大、灵活的**比例**和**弹性**布局，自动处理剩余空间分配。
+3.  **`minmax()`**: 创建具有最小和最大尺寸限制的**响应式**轨道。
+4.  **`repeat(auto-fit/fill, ...)`**: 结合 `minmax()`，轻松构建健壮的、列数自适应的响应式网格。
+5.  **`grid-template-areas`**: 提供**代码即设计**的直观布局方式，极大提升复杂布局的可读性和维护性。
+6.  **显式与隐式结合**: 精确定位关键元素，让非关键元素自动填充，灵活性高。
+7.  **`gap` 属性**: 简洁、无副作用地处理元素间距。
+8.  **强大的对齐系统**: 提供容器级（`*-content`）和项目级（`*-items`, `*-self`）的全方位对齐控制。
+9.  **内容与布局分离**: 保持 HTML 结构语义化，将布局逻辑集中到 CSS 中。
+10. **`subgrid` (进阶)**: 允许嵌套 Grid 继承父 Grid 的轨道定义，实现更精密的跨层级对齐（注意浏览器支持度）。
+
+## 六、何时选择 Grid vs. Flexbox?
+
+-   **优先使用 Flexbox**:
+    -   布局主要沿**单轴**（行 *或* 列）展开。
+    -   用于**组件内部**元素的布局（导航项、表单元素、卡片内容等）。
+    -   侧重于内容驱动的自动换行和空间分配。
+    -   需要简单的等高或等宽列效果。
+
+-   **优先使用 Grid**:
+    -   需要同时控制**行和列**的复杂**二维**布局。
+    -   构建**页面级**整体结构（页眉、页脚、侧边栏、主内容）。
+    -   需要项目**跨越多行或多列**，或在网格中**精确定位**。
+    -   希望使用 `grid-template-areas` 进行可视化布局。
+
+-   **最佳实践：结合使用**: Grid 负责页面主要区域划分，Flexbox 负责这些区域内部元素的排列。发挥各自长处，构建现代、高效、响应式的 Web 布局。
+
+---
+
+**优化说明:**
+
+1.  **结构调整**: 使用更清晰的层级（一、二、三...），并将属性分类提前，使结构更符合学习逻辑。
+2.  **内容精炼与增强**:
+    *   开头强调 Grid 的**二维**特性和**革命性**。
+    *   术语解释更精确，补充了网格线编号规则、`fr` 单位的核心作用、`auto-fill` vs `auto-fit` 的关键区别和应用场景。
+    *   对 `grid-template-areas` 的工作流程和规则进行了更清晰的阐述，并提供了一个更实际的页面布局示例。
+    *   明确区分了 `*-content` (对齐轨道) 和 `*-items` (对齐项) 的作用和适用场景。
+    *   强调了 `gap` 相比 `margin` 的优势。
+    *   对 `grid-area` 的两种用法进行了区分和推荐。
+    *   补充了 `order` 在 Grid 中的适用性和注意事项。
+    *   移除了无效的本地图片链接，并用文字描述或通用图替代。
+3.  **语言润色**: 使用更专业、精确的术语（如“轨道”、“二维布局系统”、“内容框”等），语句更流畅简洁。
+4.  **重点突出**: 对核心概念、关键属性（如 `fr`, `minmax`, `repeat`, `areas`, `gap`）和重要区别（Grid vs Flexbox, `*-content` vs `*-items`, `auto-fill` vs `auto-fit`）进行了**加粗**或特别说明。
+5.  **补充知识**: 增加了 `subgrid` 的提及，并指出了其进阶性质和浏览器支持问题。
+6.  **代码示例**: 保持了代码示例的简洁性，并添加了更贴切的场景示例（如 `page-layout`）。
+7.  **可读性**: 通过列表、代码块和适当的段落划分，提高了笔记的可读性和视觉效果。
+
+希望这份优化后的笔记能更好地满足你的学习和复习需求！
