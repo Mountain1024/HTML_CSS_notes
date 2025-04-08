@@ -2,7 +2,7 @@
 
 表单是网页中用于**收集用户输入**的交互控件集合，通过 HTTP 请求将数据发送至 Web 服务器进行处理。广泛应用于注册、登录、搜索等场景。
 
-##  **表单容器: `<form>` 元素**
+## **表单容器: `<form>` 元素**
 
 `<form>` 元素是所有表单控件的容器，定义了表单的整体行为，特别是数据提交的目标地址和方式。
 
@@ -14,23 +14,23 @@
 
 **核心属性:**
 
--   `action`: 指定处理表单数据的服务器端 **URL**。若省略或为空，则提交到当前页面。
--   `method`: 指定提交数据使用的 **HTTP 方法** 。
-    -   `get` (默认): 将表单数据作为 **URL 查询参数** 追加到 `action` URL 后面 (`?key=value&key2=value2...`)。
-        *   数据在 URL 中可见。
-        *   长度受 URL 限制 (通常约 2KB)。
-        *   适合用于**获取/查询**数据（如搜索），因为请求是幂等的且可被缓存/收藏。
-    -   `post`: 将表单数据包含在 HTTP 请求的**请求体 (Request Body)** 中发送。特点：
-        *   数据不在 URL 中可见，更安全（尤其配合 HTTPS）。
-        *   理论上没有数据长度限制。
-        *   适合用于**创建/更新**资源或提交敏感信息（如密码、大量文本、文件上传）。
--   `enctype`: **当 `method="post"` 时**，指定数据的编码类型。（encoding type）
-    -   `application/x-www-form-urlencoded` (默认): 标准编码。
-    -   `multipart/form-data`: **文件上传时必需**。不编码字符，传输二进制数据。
-    -   `text/plain`: (HTML5) 纯文本发送，基本不编码（少用）。
--   `target`: 指定在何处显示响应 (`_self`, `_blank` 等)。
--   `novalidate`: **布尔属性**。禁用浏览器内置的 HTML5 表单验证功能，允许表单直接提交，即使存在格式错误或必填项未填。
--   `autocomplete`: 控制表单内控件是否默认启用浏览器自动填充 (`on` 或 `off`)。
+- `action`: 指定处理表单数据的服务器端 **URL**。若省略或为空，则提交到当前页面。
+- `method`: 指定提交数据使用的 **HTTP 方法** 。
+  - `get` (默认): 将表单数据作为 **URL 查询参数** 追加到 `action` URL 后面 (`?key=value&key2=value2...`)。
+    - 数据在 URL 中可见。
+    - 长度受 URL 限制 (通常约 2KB)。
+    - 适合用于**获取/查询**数据（如搜索），因为请求是幂等的且可被缓存/收藏。
+  - `post`: 将表单数据包含在 HTTP 请求的**请求体 (Request Body)** 中发送。特点：
+    - 数据不在 URL 中可见，更安全（尤其配合 HTTPS）。
+    - 理论上没有数据长度限制。
+    - 适合用于**创建/更新**资源或提交敏感信息（如密码、大量文本、文件上传）。
+- `enctype`: **当 `method="post"` 时**，指定数据的编码类型。（encoding type）
+  - `application/x-www-form-urlencoded` (默认): 标准编码。
+  - `multipart/form-data`: **文件上传时必需**。不编码字符，传输二进制数据。
+  - `text/plain`: (HTML5) 纯文本发送，基本不编码（少用）。
+- `target`: 指定在何处显示响应 (`_self`, `_blank` 等)。
+- `novalidate`: **布尔属性**。禁用浏览器内置的 HTML5 表单验证功能，允许表单直接提交，即使存在格式错误或必填项未填。
+- `autocomplete`: 控制表单内控件是否默认启用浏览器自动填充 (`on` 或 `off`)。
 
 ```html
 <form action="/submit-data" method="post" enctype="multipart/form-data" novalidate>
@@ -88,16 +88,16 @@
 
 - `name`: (对需提交数据的控件 **必需**) 定义控件名称，提交数据时的键 (`key`)，供服务器端识别。
 - `value`: 控件的初始值或提交时的值。
-  -   文本类：输入框的初始内容。
-  -   `radio`/`checkbox`：选中时提交给服务器的那个选项的值。
-  -   按钮类 (`<input>`)：`button/submit/reset`，指定按钮上显示的文本。
-  -   `hidden`：要提交的隐藏数据值。
+  - 文本类：输入框的初始内容。
+  - `radio`/`checkbox`：选中时提交给服务器的那个选项的值。
+  - 按钮类 (`<input>`)：`button/submit/reset`，指定按钮上显示的文本。
+  - `hidden`：要提交的隐藏数据值。
 - `id`: 元素的唯一标识符，主要用于 `<label>` 的 `for` 属性关联、CSS 和 JS 操作。
--   `required`: (布尔) 标记为必填项，提交前浏览器会进行非空验证。
--   `readonly`: (布尔) **只读**，用户不能修改，但值会提交。
+- `required`: (布尔) 标记为必填项，提交前浏览器会进行非空验证。
+- `readonly`: (布尔) **只读**，用户不能修改，但值会提交。
 - `disabled`: (布尔) **禁用**，不可交互，值**不会**提交。
--   `checked`: (布尔, `radio`/`checkbox`) 默认选中。
--   `autofocus`:(布尔) 页面加载时自动获得焦点。
+- `checked`: (布尔, `radio`/`checkbox`) 默认选中。
+- `autofocus`:(布尔) 页面加载时自动获得焦点。
 - `placeholder`: 输入框为空时的**占位提示文本**。
 - `min`, `max`, `step`: (用于 `number`, `range`, 日期/时间) 定义范围和步长。
 - `maxlength`: (文本类) 最大输入字符数。
@@ -124,11 +124,11 @@
 
 **常用属性:**
 
-*   `rows`, `cols`: 定义初始可见行数和列数 (影响尺寸)。
-*   `maxlength`: 限制最大输入字符数。
-*   `placeholder`, `required`, `readonly`, `disabled`, `autofocus` 等通用属性也适用。
-*   `wrap`: (HTML5) 控制文本换行方式 (`soft` 默认，提交时不带换行符；`hard` 提交时带换行符，需配合 `cols`)。
-*   **缩放控制 (CSS):** 通过 CSS 的 `resize` 属性控制其是否及如何允许用户调整尺寸 (`none`, `vertical`, `horizontal`, `both`)。
+- `rows`, `cols`: 定义初始可见行数和列数 (影响尺寸)。
+- `maxlength`: 限制最大输入字符数。
+- `placeholder`, `required`, `readonly`, `disabled`, `autofocus` 等通用属性也适用。
+- `wrap`: (HTML5) 控制文本换行方式 (`soft` 默认，提交时不带换行符；`hard` 提交时带换行符，需配合 `cols`)。
+- **缩放控制 (CSS):** 通过 CSS 的 `resize` 属性控制其是否及如何允许用户调整尺寸 (`none`, `vertical`, `horizontal`, `both`)。
 
 ```html
 <label for="bio">个人简介:</label><br>
@@ -163,22 +163,22 @@
 
 两者都能创建按钮，但 **强烈推荐使用 `<button>` 元素**:
 
-*   **内容更灵活:** `<button>` 内部可以包含 HTML 内容（如 `<img>`, `<span>`），而 `<input>` 只能通过 `value` 显示纯文本。
-*   **语义更清晰:** `<button>` 更明确地表示一个按钮。
-*   **默认行为:** `<button>` 在 `<form>` 内若未指定 `type` 属性，其**默认行为是 `type="submit"`**。如果不想让按钮提交表单，务必显式设置 `type="button"` 或 `type="reset"`。
+- **内容更灵活:** `<button>` 内部可以包含 HTML 内容（如 `<img>`, `<span>`），而 `<input>` 只能通过 `value` 显示纯文本。
+- **语义更清晰:** `<button>` 更明确地表示一个按钮。
+- **默认行为:** `<button>` 在 `<form>` 内若未指定 `type` 属性，其**默认行为是 `type="submit"`**。如果不想让按钮提交表单，务必显式设置 `type="button"` 或 `type="reset"`。
 
 ## `<label>` 元素 - 控件标签
 
 `<label>` 为表单控件提供描述性标签。它有两种主要关联方式：
 
-* **显式关联 (推荐):** `<label>` 的 `for` 属性指向控件的 `id`。点击标签可聚焦到控件。
+- **显式关联 (推荐):** `<label>` 的 `for` 属性指向控件的 `id`。点击标签可聚焦到控件。
 
   ```html
   <label for="username">用户名:</label>
   <input type="text" id="username" name="username">
   ```
 
-* **隐式关联:** 将控件嵌套在 `<label>` 内 (无需 `for`/`id`)。
+- **隐式关联:** 将控件嵌套在 `<label>` 内 (无需 `for`/`id`)。
 
   ```html
   <label>用户名: <input type="text" name="username"></label>
@@ -191,15 +191,15 @@
 ## **单选 (`radio`) 与 复选 (`checkbox`)**
 
 - **单选按钮 (`radio`):**
-  *   **同一组**需有**相同的 `name`** (实现互斥)。
-  *   每个选项应有不同的 `value` (提交的值)。
-  *   用 `checked` 设默认选中项。
+  - **同一组**需有**相同的 `name`** (实现互斥)。
+  - 每个选项应有不同的 `value` (提交的值)。
+  - 用 `checked` 设默认选中项。
 
 - **复选框 (`checkbox`):**
-  *   允许选择零个或多个。
-  *   同类选项建议用相同 `name` (服务器端可按数组处理)。
-  *   **必须**设置 `value` 属性，表示选中时提交的值。
-  *   用 `checked` 设默认勾选项。
+  - 允许选择零个或多个。
+  - 同类选项建议用相同 `name` (服务器端可按数组处理)。
+  - **必须**设置 `value` 属性，表示选中时提交的值。
+  - 用 `checked` 设默认勾选项。
 
 ```html
 <!-- 单选 -->
@@ -219,16 +219,16 @@
 
 创建下拉菜单供用户选择。
 
-*   **`<select>`**: 列表容器。
-    *   `name`: 必需，提交时的键。
-    *   `multiple`: (布尔属性) 允许选择多个选项。
-    *   `size`: 设置可见选项的数量（大于 1 时通常呈现为列表框）。
-*   **`<option>`**: 定义列表中的一个选项。
-    *   `value`: 提交到服务器的值。若省略，则提交 `<option>` 标签内的文本。
-    *   `selected`: (布尔) 设置为默认选中项。
-    *   标签内文本: 用户看到的选项。
-*   **`<optgroup>`**: 对 `<option>` 进行分组。
-    *   `label`: 分组标题。
+- **`<select>`**: 列表容器。
+  - `name`: 必需，提交时的键。
+  - `multiple`: (布尔属性) 允许选择多个选项。
+  - `size`: 设置可见选项的数量（大于 1 时通常呈现为列表框）。
+- **`<option>`**: 定义列表中的一个选项。
+  - `value`: 提交到服务器的值。若省略，则提交 `<option>` 标签内的文本。
+  - `selected`: (布尔) 设置为默认选中项。
+  - 标签内文本: 用户看到的选项。
+- **`<optgroup>`**: 对 `<option>` 进行分组。
+  - `label`: 分组标题。
 
 ```html
 <label for="country">选择国家:</label>
@@ -249,9 +249,9 @@
 
 `<datalist>` 元素包含一组 `<option>` 元素，这些选项作为与它关联的 `<input>` 元素的建议列表。用户输入时，浏览器会显示匹配的建议。
 
-*   `<datalist>` 需要一个 `id`。
-*   `<input>` 的 `list` 属性值必须等于 `<datalist>` 的 `id`。
-*   `<option>` 在 `<datalist>` 中只需要 `value` 属性 (用户看到和提交的值)。也可以包含标签文本。
+- `<datalist>` 需要一个 `id`。
+- `<input>` 的 `list` 属性值必须等于 `<datalist>` 的 `id`。
+- `<option>` 在 `<datalist>` 中只需要 `value` 属性 (用户看到和提交的值)。也可以包含标签文本。
 
 ```html
 <label for="browser">喜欢的浏览器:</label>
@@ -268,8 +268,8 @@
 
 将相关控件组织在一起，并提供标题。
 
-*   `<fieldset>`: 分组容器 (视觉上常带边框)。
-*   `<legend>`: (必须是 `<fieldset>` 的**第一个子元素**) 分组标题。
+- `<fieldset>`: 分组容器 (视觉上常带边框)。
+- `<legend>`: (必须是 `<fieldset>` 的**第一个子元素**) 分组标题。
 
 ```html
 <fieldset>
@@ -289,26 +289,26 @@
 
 浏览器内置的客户端验证机制，在表单提交时触发。
 
-*   **属性验证:**
-    *   `required`: 确保字段不为空。
-    *   `type` (如 `email`, `url`, `number`): 提供基础的类型和格式验证。
-    *   `min`, `max`, `step`: 数值范围和步长验证。
-    *   `minlength`, `maxlength`: 文本长度验证。
-    *   `pattern`: 正则表达式匹配。
-*   **禁用验证：**
-    *   在 `<form>` 上加 `novalidate` 属性：禁用整个表单的验证。
-    *   在提交按钮 (`<button type="submit">` 或 `<input type="submit">`) 上加 `formnovalidate` 属性：通过此按钮提交时不进行验证。
-*   **CSS 伪类:** `:valid`, `:invalid`, `:required`, `:optional` 等伪类可用于根据验证状态设置样式。
+- **属性验证:**
+  - `required`: 确保字段不为空。
+  - `type` (如 `email`, `url`, `number`): 提供基础的类型和格式验证。
+  - `min`, `max`, `step`: 数值范围和步长验证。
+  - `minlength`, `maxlength`: 文本长度验证。
+  - `pattern`: 正则表达式匹配。
+- **禁用验证：**
+  - 在 `<form>` 上加 `novalidate` 属性：禁用整个表单的验证。
+  - 在提交按钮 (`<button type="submit">` 或 `<input type="submit">`) 上加 `formnovalidate` 属性：通过此按钮提交时不进行验证。
+- **CSS 伪类:** `:valid`, `:invalid`, `:required`, `:optional` 等伪类可用于根据验证状态设置样式。
 
 ### HTML5 `form*` 属性
 
 允许提交按钮等元素覆盖其所属 `<form>` 的某些属性，实现更灵活的提交行为，尤其适用于一个表单内有多个不同目的的提交按钮。
 
-*   `formaction`: 覆盖 `<form>` 的 `action`。
-*   `formenctype`: 覆盖 `<form>` 的 `enctype`。
-*   `formmethod`: 覆盖 `<form>` 的 `method`。
-*   `formnovalidate`: 覆盖 `<form>` 的 `novalidate` (使本次提交不验证)。
-*   `formtarget`: 覆盖 `<form>` 的 `target`。
+- `formaction`: 覆盖 `<form>` 的 `action`。
+- `formenctype`: 覆盖 `<form>` 的 `enctype`。
+- `formmethod`: 覆盖 `<form>` 的 `method`。
+- `formnovalidate`: 覆盖 `<form>` 的 `novalidate` (使本次提交不验证)。
+- `formtarget`: 覆盖 `<form>` 的 `target`。
 
 ## GET vs POST 请求方法对比
 

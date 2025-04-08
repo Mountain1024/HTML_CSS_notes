@@ -309,10 +309,10 @@ Grid 属性分为两类：
 
 #### `grid-area`
 
-*   **用法 1: 引用命名区域**
-    *   `grid-area: <name>;` - 将此项放置到 `grid-template-areas` 中定义的同名区域。这是最直观的用法。
-*   **用法 2: 定位简写**
-    *   `grid-area: <row-start> / <column-start> / <row-end> / <column-end>;` - 同时指定四条网格线。
+- **用法 1: 引用命名区域**
+  - `grid-area: <name>;` - 将此项放置到 `grid-template-areas` 中定义的同名区域。这是最直观的用法。
+- **用法 2: 定位简写**
+  - `grid-area: <row-start> / <column-start> / <row-end> / <column-end>;` - 同时指定四条网格线。
 
 - **示例**:
 
